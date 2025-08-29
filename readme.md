@@ -5,3 +5,7 @@ https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/install-me
 pip3 install torch torchvision --index-url https://download.pytorch.org/whl/rocm6.4
 conda install -c conda-forge ffmpeg
 pip install openai-whisper
+
+.gitignore
+/outputs
+/source
