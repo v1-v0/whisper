@@ -1,0 +1,7 @@
+2025-08-30 03:28:38,867 - WARNING - Config file config.ini not found, creating default
+2025-08-30 03:28:38,868 - INFO - Using audio file from 'source': source/2024Nov11_optogenetics.wav
+2025-08-30 03:28:38,875 - INFO - Audio Duration: 2 hours, 18 minutes
+2025-08-30 03:28:43,661 - INFO - Using device: cuda
+2025-08-30 03:30:32,941 - INFO - Start Time: 2025-08-30 03:30:32
+2025-08-30 03:37:52,644 - INFO - Transcription Duration: 0 hours, 7 minutes
+2025-08-30 03:37:52,644 - INFO - Transcription written to: outputs/2024Nov11_optogenetics_large-v3-turbo_202508300330.txt
