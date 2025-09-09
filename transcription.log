@@ -5,3 +5,39 @@
 2025-08-30 03:30:32,941 - INFO - Start Time: 2025-08-30 03:30:32
 2025-08-30 03:37:52,644 - INFO - Transcription Duration: 0 hours, 7 minutes
 2025-08-30 03:37:52,644 - INFO - Transcription written to: outputs/2024Nov11_optogenetics_large-v3-turbo_202508300330.txt
+2025-09-09 22:34:43,946 - INFO - Using audio file from 'source': source/5720 L2.m4a
+2025-09-09 22:34:43,947 - ERROR - Error reading audio file 'source/5720 L2.m4a': Error opening 'source/5720 L2.m4a': Format not recognised.
+2025-09-09 22:34:43,947 - ERROR - Aborting due to audio file error
+2025-09-09 22:35:24,645 - INFO - Using audio file from 'source': source/5720_L2.m4a
+2025-09-09 22:35:24,645 - ERROR - Error reading audio file 'source/5720_L2.m4a': Error opening 'source/5720_L2.m4a': Format not recognised.
+2025-09-09 22:35:24,645 - ERROR - Aborting due to audio file error
+2025-09-09 22:42:32,590 - INFO - Using audio file from 'source': source/2025R1-5720-L02.mp3
+2025-09-09 22:42:32,592 - INFO - Audio Duration: 2 hours, 23 minutes
+2025-09-09 22:42:37,402 - INFO - Using device: cuda
+2025-09-09 22:42:42,746 - INFO - Start Time: 2025-09-09 22:42:42
+2025-09-09 22:51:59,064 - INFO - Transcription Duration: 0 hours, 9 minutes
+2025-09-09 22:51:59,064 - INFO - Transcription written to: outputs/2025R1-5720-L02_large-v3-turbo_202509092242.txt
+2025-09-09 23:00:01,535 - INFO - Using audio file from 'source': source/2025R1-5720-L02.mp3
+2025-09-09 23:00:01,535 - INFO - Audio Duration: 2 hours, 23 minutes
+2025-09-09 23:00:06,414 - INFO - Using device: cuda
+2025-09-09 23:00:11,396 - INFO - Start Time: 2025-09-09 23:00:11
+2025-09-09 23:09:01,425 - INFO - Transcription Duration: 0 hours, 8 minutes
+2025-09-09 23:09:01,425 - INFO - Transcription written to: outputs/2025R1-5720-L02_large-v3-turbo_202509092300.txt
+2025-09-09 23:12:44,103 - INFO - Using audio file from 'source': source/2025R1-5720-L02.mp3
+2025-09-09 23:12:44,104 - INFO - Audio Duration: 2 hours, 23 minutes
+2025-09-09 23:12:48,972 - INFO - Using device: cuda
+2025-09-09 23:12:54,005 - INFO - Start Time: 2025-09-09 23:12:54
+2025-09-09 23:22:37,731 - INFO - Transcription Duration: 0 hours, 9 minutes
+2025-09-09 23:22:37,732 - INFO - Transcription written to: outputs/2025R1-5720-L02_large-v3-turbo_202509092312.txt
+2025-09-09 23:33:23,063 - INFO - Using audio file from 'source': source/2025R1-5720-L02.mp3
+2025-09-09 23:33:23,063 - INFO - Audio Duration: 2 hours, 23 minutes
+2025-09-09 23:33:27,935 - INFO - Using device: cuda
+2025-09-09 23:33:32,904 - INFO - Start Time: 2025-09-09 23:33:32
+2025-09-09 23:42:10,502 - INFO - Transcription Duration: 0 hours, 8 minutes
+2025-09-09 23:42:10,503 - INFO - Transcription written to: outputs/2025R1-5720-L02_large-v3-turbo_202509092333.txt
+2025-09-09 23:56:12,279 - INFO - Using audio file from 'source': source/2025R1-5720-L02.mp3
+2025-09-09 23:56:12,279 - INFO - Audio Duration: 2 hours, 23 minutes
+2025-09-09 23:56:17,155 - INFO - Using device: cuda
+2025-09-09 23:56:26,917 - INFO - Start Time: 2025-09-09 23:56:26
+2025-09-10 00:20:48,652 - INFO - Transcription Duration: 0 hours, 24 minutes
+2025-09-10 00:20:48,652 - INFO - Transcription written to: outputs/2025R1-5720-L02_large_202509092356.txt
