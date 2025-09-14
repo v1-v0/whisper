@@ -41,3 +41,15 @@
 2025-09-09 23:56:26,917 - INFO - Start Time: 2025-09-09 23:56:26
 2025-09-10 00:20:48,652 - INFO - Transcription Duration: 0 hours, 24 minutes
 2025-09-10 00:20:48,652 - INFO - Transcription written to: outputs/2025R1-5720-L02_large_202509092356.txt
+2025-09-11 21:20:18,817 - INFO - Using audio file from 'source': source/L1-A.mp3
+2025-09-11 21:20:18,819 - INFO - Audio Duration: 0 hours, 49 minutes
+2025-09-11 21:20:24,559 - INFO - Using device: cuda
+2025-09-11 21:20:29,943 - INFO - Start Time: 2025-09-11 21:20:29
+2025-09-11 21:23:25,034 - INFO - Transcription Duration: 0 hours, 2 minutes
+2025-09-11 21:23:25,034 - INFO - Transcription written to: outputs/L1-A_large-v3-turbo_202509112120.txt
+2025-09-11 21:24:19,648 - INFO - Using audio file from 'source': source/L1-B.mp3
+2025-09-11 21:24:19,648 - INFO - Audio Duration: 1 hours, 22 minutes
+2025-09-11 21:24:24,548 - INFO - Using device: cuda
+2025-09-11 21:24:29,530 - INFO - Start Time: 2025-09-11 21:24:29
+2025-09-11 21:28:57,131 - INFO - Transcription Duration: 0 hours, 4 minutes
+2025-09-11 21:28:57,131 - INFO - Transcription written to: outputs/L1-B_large-v3-turbo_202509112124.txt
