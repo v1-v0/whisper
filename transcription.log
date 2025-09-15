@@ -53,3 +53,11 @@
 2025-09-11 21:24:29,530 - INFO - Start Time: 2025-09-11 21:24:29
 2025-09-11 21:28:57,131 - INFO - Transcription Duration: 0 hours, 4 minutes
 2025-09-11 21:28:57,131 - INFO - Transcription written to: outputs/L1-B_large-v3-turbo_202509112124.txt
+2025-09-15 22:54:15,450 - INFO - Using audio file from 'source': source/20250910-Fluoro-navigation
+2025-09-15 22:54:15,450 - ERROR - Unsupported audio file format: source/20250910-Fluoro-navigation
+2025-09-15 22:55:04,837 - INFO - Using audio file from 'source': source/20250910-Fluoro-navigation.mp3
+2025-09-15 22:55:04,845 - INFO - Audio Duration: 2 hours, 19 minutes
+2025-09-15 22:55:09,580 - INFO - Using device: cuda
+2025-09-15 22:55:14,938 - INFO - Start Time: 2025-09-15 22:55:14
+2025-09-15 23:04:50,975 - INFO - Transcription Duration: 0 hours, 9 minutes
+2025-09-15 23:04:50,976 - INFO - Transcription written to: outputs/20250910-Fluoro-navigation_large-v3-turbo_202509152255.txt
