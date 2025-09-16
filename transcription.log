@@ -61,3 +61,19 @@
 2025-09-15 22:55:14,938 - INFO - Start Time: 2025-09-15 22:55:14
 2025-09-15 23:04:50,975 - INFO - Transcription Duration: 0 hours, 9 minutes
 2025-09-15 23:04:50,976 - INFO - Transcription written to: outputs/20250910-Fluoro-navigation_large-v3-turbo_202509152255.txt
+2025-09-16 23:47:25,689 - INFO - Using audio file from 'source': source/20250910-Fluoro-navigation.mp3
+2025-09-16 23:47:25,690 - INFO - Audio Duration: 2 hours, 19 minutes
+2025-09-16 23:47:31,417 - INFO - Using device: cuda
+2025-09-16 23:47:36,801 - INFO - Start Time: 2025-09-16 23:47:36
+2025-09-16 23:48:36,727 - INFO - Using audio file from 'source': source/20250910-Fluoro-navigation.mp3
+2025-09-16 23:48:36,727 - INFO - Audio Duration: 2 hours, 19 minutes
+2025-09-16 23:48:41,515 - INFO - Using device: cuda
+2025-09-16 23:48:46,471 - INFO - Start Time: 2025-09-16 23:48:46
+2025-09-16 23:58:33,295 - INFO - Transcription Duration: 0 hours, 9 minutes
+2025-09-16 23:58:33,295 - INFO - Transcription written to: outputs/20250910-Fluoro-navigation_large-v3-turbo_202509162348.txt
+2025-09-17 00:25:27,390 - INFO - Using audio file from 'source': source/5720-L2.MP3
+2025-09-17 00:25:27,390 - INFO - Audio Duration: 2 hours, 25 minutes
+2025-09-17 00:25:32,226 - INFO - Using device: cuda
+2025-09-17 00:25:37,182 - INFO - Start Time: 2025-09-17 00:25:37
+2025-09-17 00:33:51,910 - INFO - Transcription Duration: 0 hours, 8 minutes
+2025-09-17 00:33:51,911 - INFO - Transcription written to: outputs/5720-L2_large-v3-turbo_202509170025.txt
