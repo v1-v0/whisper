@@ -6,7 +6,7 @@ import configparser
 import soundfile as sf
 import torch
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Union, List, Dict, Any
 
 # Configure logging
 logging.basicConfig(
@@ -49,7 +49,7 @@ def load_config(config_path: str = 'config.ini') -> configparser.ConfigParser:
         config.read(config_path)
     return config
 
-def chunk_audio_timestamps(audio_length: float, chunk_length: float = 30.0, overlap: float = 5.0) -> list:
+def chunk_audio_timestamps(audio_length: float, chunk_length: float = 30.0, overlap: float = 5.0) -> List[Tuple[float, float]]:
     """Generate timestamp chunks for processing long audio files."""
     chunks = []
     start = 0.0
@@ -67,7 +67,7 @@ def chunk_audio_timestamps(audio_length: float, chunk_length: float = 30.0, over
     
     return chunks
 
-def merge_chunk_results(chunk_results: list) -> dict:
+def merge_chunk_results(chunk_results: List[Optional[Dict[str, Any]]]) -> Dict[str, Any]:
     """Merge results from multiple audio chunks into a single result."""
     if not chunk_results:
         return {"text": "", "segments": [], "language": "en"}
@@ -189,7 +189,7 @@ def setup_hf_authentication(config: configparser.ConfigParser) -> bool:
         logger.warning(f"Failed to authenticate with Hugging Face Hub: {e}")
         return False
 
-def create_token_file_if_needed(config_path: str = 'config.ini'):
+def create_token_file_if_needed(config_path: str = 'config.ini') -> None:
     """Create a template token file if it doesn't exist."""
     config = configparser.ConfigParser()
     config.read(config_path)
@@ -268,7 +268,7 @@ def get_mlx_model_name(whisper_model: str) -> str:
     }
     return mlx_model_mapping.get(whisper_model, whisper_model)
 
-def load_audio_chunk(audio_file: str, start_time: float, end_time: float) -> str:
+def load_audio_chunk(audio_file: str, start_time: float, end_time: float) -> Optional[str]:
     """Load a specific chunk of audio and save to temporary file."""
     try:
         import tempfile
@@ -299,7 +299,7 @@ def load_audio_chunk(audio_file: str, start_time: float, end_time: float) -> str
         logger.warning(f"Error creating audio chunk: {e}")
         return None
 
-def transcribe_audio_mlx_chunked(model_name: str, audio_file: str, chunks: list, language: str = None, task: str = 'transcribe', verbose: bool = False) -> Optional[dict]:
+def transcribe_audio_mlx_chunked(model_name: str, audio_file: str, chunks: List[Tuple[float, float]], language: Optional[str] = None, task: str = 'transcribe', verbose: bool = False) -> Optional[Dict[str, Any]]:
     """Transcribe audio file using MLX-Whisper with chunking."""
     try:
         import mlx_whisper
@@ -326,7 +326,7 @@ def transcribe_audio_mlx_chunked(model_name: str, audio_file: str, chunks: list,
             
             try:
                 # Set up transcription parameters for MLX
-                transcribe_params = {
+                transcribe_params: Dict[str, Any] = {
                     'audio': chunk_file,
                     'path_or_hf_repo': mlx_model_name,
                     'task': task,  # 'translate' will convert to English
@@ -343,7 +343,7 @@ def transcribe_audio_mlx_chunked(model_name: str, audio_file: str, chunks: list,
                 
                 # Log progress
                 if chunk_result and 'text' in chunk_result:
-                    text_preview = chunk_result['text'][:100] + "..." if len(chunk_result['text']) > 100 else chunk_result['text']
+                    text_preview = str(chunk_result['text'])[:100] + "..." if len(str(chunk_result['text'])) > 100 else str(chunk_result['text'])
                     logger.info(f"Chunk {i+1} completed. Preview: {text_preview}")
                 
             except Exception as e:
@@ -364,7 +364,7 @@ def transcribe_audio_mlx_chunked(model_name: str, audio_file: str, chunks: list,
         logger.error(f"MLX chunked transcription failed: {e}")
         return None
 
-def transcribe_audio_mlx(model_name: str, audio_file: str, language: str = None, task: str = 'transcribe', verbose: bool = False) -> Optional[dict]:
+def transcribe_audio_mlx(model_name: str, audio_file: str, language: Optional[str] = None, task: str = 'transcribe', verbose: bool = False) -> Optional[Dict[str, Any]]:
     """Transcribe audio file using MLX-Whisper model."""
     try:
         import mlx_whisper
@@ -374,7 +374,7 @@ def transcribe_audio_mlx(model_name: str, audio_file: str, language: str = None,
         logger.info(f"Using MLX model: {mlx_model_name}")
         logger.info(f"Task: {task}, Target language: {language or 'auto-detect'}")
         
-        transcribe_params = {
+        transcribe_params: Dict[str, Any] = {
             'audio': audio_file,
             'path_or_hf_repo': mlx_model_name,
             'task': task,
@@ -399,13 +399,13 @@ def transcribe_audio_mlx(model_name: str, audio_file: str, language: str = None,
         logger.error(f"MLX transcription failed: {e}")
         return None
 
-def transcribe_audio_standard(model, audio_file: str, language: str = None, task: str = 'transcribe', use_fp16: bool = False, verbose: bool = False) -> Optional[dict]:
+def transcribe_audio_standard(model: Any, audio_file: str, language: Optional[str] = None, task: str = 'transcribe', use_fp16: bool = False, verbose: bool = False) -> Optional[Dict[str, Any]]:
     """Transcribe audio file using standard Whisper model."""
     try:
         logger.info(f"Using standard Whisper for transcription")
         logger.info(f"Task: {task}, Target language: {language or 'auto-detect'}")
         
-        transcribe_params = {
+        transcribe_params: Dict[str, Any] = {
             'audio': audio_file,
             'fp16': use_fp16,
             'task': task,
@@ -443,7 +443,7 @@ def get_optimal_device(force_cpu: bool = False) -> str:
     
     return "cpu"
 
-def save_transcription(result: dict, audio_file: str, model_name: str, start_time: float, output_dir: str, backend: str, language: str = None, max_line_length: int = 1000) -> None:
+def save_transcription(result: Dict[str, Any], audio_file: str, model_name: str, start_time: float, output_dir: str, backend: str, language: Optional[str] = None, max_line_length: int = 1000) -> None:
     """Save transcription to a file with proper formatting."""
     try:
         model_name_for_file = model_name.replace('.', '_').replace('/', '_')
@@ -476,7 +476,7 @@ def save_transcription(result: dict, audio_file: str, model_name: str, start_tim
     except Exception as e:
         logger.error(f"Error saving transcription: {e}")
 
-def main():
+def main() -> None:
     """Main function to orchestrate audio transcription."""
     import sys
     try:
@@ -541,6 +541,7 @@ def main():
 
         # Determine if chunking should be used
         use_chunking = enable_chunking and audio_length > chunk_length * 2
+        chunks: Optional[List[Tuple[float, float]]] = None
         if use_chunking:
             chunks = chunk_audio_timestamps(audio_length, chunk_length, overlap_length)
             logger.info(f"Using chunking: {len(chunks)} chunks of {chunk_length}s with {overlap_length}s overlap")
@@ -584,16 +585,16 @@ def main():
 
         result = None
         if use_mlx_backend:
-            if use_chunking:
+            if use_chunking and chunks is not None:
                 result = transcribe_audio_mlx_chunked(
                     whisper_model, audio_file, chunks, 
-                    language=specified_language if task == 'transcribe' else None, 
+                    language=specified_language if task == 'transcribe' and specified_language else None, 
                     task=task, verbose=verbose_output
                 )
             else:
                 result = transcribe_audio_mlx(
                     whisper_model, audio_file, 
-                    language=specified_language if task == 'transcribe' else None, 
+                    language=specified_language if task == 'transcribe' and specified_language else None, 
                     task=task, verbose=verbose_output
                 )
         else:
@@ -601,7 +602,7 @@ def main():
             use_fp16 = device in ["cuda", "mps"] and not force_cpu
             result = transcribe_audio_standard(
                 model, audio_file, 
-                language=specified_language if task == 'transcribe' else None, 
+                language=specified_language if task == 'transcribe' and specified_language else None, 
                 task=task, use_fp16=use_fp16, verbose=verbose_output
             )
 
