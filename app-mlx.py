@@ -29,7 +29,7 @@ def load_config(config_path: str = 'config.ini') -> configparser.ConfigParser:
             'output_dir': 'outputs',
             'use_mlx': 'true',  # Use MLX-Whisper on Mac for better performance
             'force_cpu': 'false',  # Force CPU usage if needed
-            'hf_token': '',  # Hugging Face token for private models
+            'hf_token_file': '.hf_token',  # Path to file containing HF token
             'language': '',  # Auto-detect if empty, or specify language code (e.g., 'en', 'zh', 'ja')
             'task': 'transcribe'  # 'transcribe' keeps original language, 'translate' converts to English
         }
@@ -42,6 +42,114 @@ def load_config(config_path: str = 'config.ini') -> configparser.ConfigParser:
     else:
         config.read(config_path)
     return config
+
+def get_hf_token(config: configparser.ConfigParser) -> Optional[str]:
+    """
+    Get Hugging Face token from multiple sources in order of priority:
+    1. Environment variable HF_TOKEN
+    2. Environment variable HUGGING_FACE_HUB_TOKEN
+    3. Token file specified in config
+    4. Default token file (.hf_token)
+    5. Hugging Face CLI login (if available)
+    """
+    
+    # Priority 1: Environment variable HF_TOKEN
+    hf_token = os.getenv('HF_TOKEN')
+    if hf_token:
+        logger.info("Using HF token from HF_TOKEN environment variable")
+        return hf_token.strip()
+    
+    # Priority 2: Environment variable HUGGING_FACE_HUB_TOKEN
+    hf_token = os.getenv('HUGGING_FACE_HUB_TOKEN')
+    if hf_token:
+        logger.info("Using HF token from HUGGING_FACE_HUB_TOKEN environment variable")
+        return hf_token.strip()
+    
+    # Priority 3: Token file specified in config
+    token_file = config['DEFAULT'].get('hf_token_file', '.hf_token')
+    if token_file and os.path.isfile(token_file):
+        try:
+            with open(token_file, 'r', encoding='utf-8') as f:
+                token = f.read().strip()
+                if token:
+                    logger.info(f"Using HF token from file: {token_file}")
+                    return token
+        except Exception as e:
+            logger.warning(f"Error reading token file {token_file}: {e}")
+    
+    # Priority 4: Default token file
+    default_token_file = '.hf_token'
+    if default_token_file != token_file and os.path.isfile(default_token_file):
+        try:
+            with open(default_token_file, 'r', encoding='utf-8') as f:
+                token = f.read().strip()
+                if token:
+                    logger.info(f"Using HF token from default file: {default_token_file}")
+                    return token
+        except Exception as e:
+            logger.warning(f"Error reading default token file {default_token_file}: {e}")
+    
+    # Priority 5: Check if already logged in via HF CLI
+    try:
+        from huggingface_hub import whoami
+        user_info = whoami()
+        if user_info:
+            logger.info(f"Using existing HF CLI authentication for user: {user_info['name']}")
+            return "CLI_AUTH"  # Special marker for CLI authentication
+    except Exception:
+        pass
+    
+    logger.info("No Hugging Face authentication found")
+    return None
+
+def setup_hf_authentication(config: configparser.ConfigParser) -> bool:
+    """
+    Setup Hugging Face authentication using various methods.
+    Returns True if authentication is successful or already exists.
+    """
+    hf_token = get_hf_token(config)
+    
+    if not hf_token:
+        logger.info("No HF token found - using public models only")
+        return False
+    
+    if hf_token == "CLI_AUTH":
+        # Already authenticated via CLI
+        return True
+    
+    try:
+        from huggingface_hub import login
+        login(token=hf_token)
+        logger.info("Successfully authenticated with Hugging Face Hub")
+        return True
+    except Exception as e:
+        logger.warning(f"Failed to authenticate with Hugging Face Hub: {e}")
+        return False
+
+def create_token_file_if_needed(config_path: str = 'config.ini'):
+    """Create a template token file if it doesn't exist."""
+    config = configparser.ConfigParser()
+    config.read(config_path)
+    
+    token_file = config['DEFAULT'].get('hf_token_file', '.hf_token')
+    
+    if not os.path.isfile(token_file):
+        try:
+            with open(token_file, 'w', encoding='utf-8') as f:
+                f.write("# Place your Hugging Face token here\n")
+                f.write("# Get your token from: https://huggingface.co/settings/tokens\n")
+                f.write("# Remove these comment lines and paste your token below\n")
+                f.write("# hf_...\n")
+            
+            # Set restrictive permissions on Unix-like systems
+            if hasattr(os, 'chmod'):
+                os.chmod(token_file, 0o600)  # Read/write for owner only
+            
+            logger.info(f"Created token file template: {token_file}")
+            logger.info("Please edit this file and add your Hugging Face token")
+            
+        except Exception as e:
+            logger.warning(f"Could not create token file {token_file}: {e}")
 
 def validate_audio_file(file_path: str) -> bool:
     """Validate if the audio file exists and has a supported extension."""
@@ -88,25 +196,6 @@ def check_mlx_availability() -> bool:
     except ImportError:
         return False
 
-def setup_hf_authentication(hf_token: str = None) -> None:
-    """Setup Hugging Face authentication if token is provided."""
-    if hf_token and hf_token.strip():
-        try:
-            from huggingface_hub import login
-            login(token=hf_token.strip())
-            logger.info("Successfully authenticated with Hugging Face Hub")
-        except Exception as e:
-            logger.warning(f"Failed to authenticate with Hugging Face Hub: {e}")
-    else:
-        # Check if already logged in
-        try:
-            from huggingface_hub import whoami
-            user_info = whoami()
-            if user_info:
-                logger.info(f"Already authenticated as: {user_info['name']}")
-        except Exception:
-            logger.info("No Hugging Face authentication found - using public models only")
-
 def get_mlx_model_name(whisper_model: str) -> str:
     """Convert standard Whisper model names to MLX-compatible names."""
     # MLX-Whisper model mapping
@@ -122,43 +211,6 @@ def get_mlx_model_name(whisper_model: str) -> str:
     }
     
     return mlx_model_mapping.get(whisper_model, whisper_model)
-
-def detect_language_first_pass(model_name: str, audio_file: str, use_mlx: bool = True) -> Optional[str]:
-    """Detect language using a quick first pass with a smaller model."""
-    try:
-        if use_mlx and check_mlx_availability():
-            import mlx_whisper
-            # Use a smaller model for quick language detection
-            small_model = get_mlx_model_name('small')
-            logger.info(f"Detecting language using MLX model: {small_model}")
-            # Transcribe just the first 30 seconds for language detection
-            result = mlx_whisper.transcribe(
-                audio_file, 
-                path_or_hf_repo=small_model,
-                clip_timestamps=[(0, 30)]  # Only process first 30 seconds
-            )
-        else:
-            import whisper
-            logger.info("Detecting language using standard Whisper")
-            model = whisper.load_model('base')  # Use base model for quick detection
-            # Load audio and detect language
-            audio = whisper.load_audio(audio_file)
-            audio = whisper.pad_or_trim(audio)  # Trim to 30 seconds
-            mel = whisper.log_mel_spectrogram(audio).to(model.device)
-            _, probs = model.detect_language(mel)
-            detected_language = max(probs, key=probs.get)
-            logger.info(f"Detected language: {detected_language} (confidence: {probs[detected_language]:.2f})")
-            return detected_language
-            
-        if result and 'language' in result:
-            detected_language = result['language']
-            logger.info(f"Detected language: {detected_language}")
-            return detected_language
-        
-    except Exception as e:
-        logger.warning(f"Language detection failed: {e}")
-    
-    return None
 
 def transcribe_audio_mlx(model_name: str, audio_file: str, language: str = None, task: str = 'transcribe') -> Optional[dict]:
     """Transcribe audio file using MLX-Whisper model."""
@@ -276,9 +328,16 @@ def main():
         output_dir: str = config['DEFAULT']['output_dir']
         use_mlx: bool = config['DEFAULT'].getboolean('use_mlx', fallback=True)
         force_cpu: bool = config['DEFAULT'].getboolean('force_cpu', fallback=False)
-        hf_token: str = config['DEFAULT'].get('hf_token', '')
         specified_language: str = config['DEFAULT'].get('language', '').strip()
         task: str = config['DEFAULT'].get('task', 'transcribe').strip()
+
+        # Create token file template if needed
+        create_token_file_if_needed()
+
+        # Setup Hugging Face authentication
+        auth_success = setup_hf_authentication(config)
+        if not auth_success:
+            logger.info("Proceeding with public models only")
 
         # Validate task parameter
         if task not in ['transcribe', 'translate']:
@@ -286,9 +345,6 @@ def main():
             task = 'transcribe'
 
         logger.info(f"Task: {task} ({'maintains original language' if task == 'transcribe' else 'translates to English'})")
-
-        # Setup Hugging Face authentication
-        setup_hf_authentication(hf_token)
 
         # Set audio_file to the first file in 'source' folder if available
         source_dir = 'source'
