@@ -24,14 +24,20 @@ def load_config(config_path: str = 'config.ini') -> configparser.ConfigParser:
     config = configparser.ConfigParser()
     default_config = {
         'DEFAULT': {
-            'audio_file': '',  # Will be set dynamically from 'source' folder
-            'whisper_model': 'large-v3',  # Changed from large-v3-turbo for MLX compatibility
+            'audio_file': '',
+            'whisper_model': 'large-v3',
             'output_dir': 'outputs',
-            'use_mlx': 'true',  # Use MLX-Whisper on Mac for better performance
-            'force_cpu': 'false',  # Force CPU usage if needed
-            'hf_token_file': '.hf_token',  # Path to file containing HF token
-            'language': '',  # Auto-detect if empty, or specify language code (e.g., 'en', 'zh', 'ja')
-            'task': 'transcribe'  # 'transcribe' keeps original language, 'translate' converts to English
+            'use_mlx': 'true',
+            'force_cpu': 'false',
+            'hf_token_file': '.hf_token',
+            'language': 'en',  # Set to English for English transcription
+            'task': 'translate',  # Use translate to convert Chinese to English
+            # Chunking options
+            'enable_chunking': 'true',
+            'chunk_length': '30',
+            'overlap_length': '5',
+            'max_segment_length': '1000',
+            'verbose_output': 'false'
         }
     }
     if not os.path.exists(config_path):
@@ -43,59 +49,120 @@ def load_config(config_path: str = 'config.ini') -> configparser.ConfigParser:
         config.read(config_path)
     return config
 
-def get_hf_token(config: configparser.ConfigParser) -> Optional[str]:
-    """
-    Get Hugging Face token from multiple sources in order of priority:
-    1. Environment variable HF_TOKEN
-    2. Environment variable HUGGING_FACE_HUB_TOKEN
-    3. Token file specified in config
-    4. Default token file (.hf_token)
-    5. Hugging Face CLI login (if available)
-    """
+def chunk_audio_timestamps(audio_length: float, chunk_length: float = 30.0, overlap: float = 5.0) -> list:
+    """Generate timestamp chunks for processing long audio files."""
+    chunks = []
+    start = 0.0
     
-    # Priority 1: Environment variable HF_TOKEN
+    while start < audio_length:
+        end = min(start + chunk_length, audio_length)
+        chunks.append((float(start), float(end)))  # Ensure float values
+        
+        # Move start position (with overlap)
+        start = end - overlap
+        
+        # Break if we've covered the entire audio
+        if end >= audio_length:
+            break
+    
+    return chunks
+
+def merge_chunk_results(chunk_results: list) -> dict:
+    """Merge results from multiple audio chunks into a single result."""
+    if not chunk_results:
+        return {"text": "", "segments": [], "language": "en"}
+    
+    # Filter out None results
+    valid_results = [r for r in chunk_results if r is not None]
+    if not valid_results:
+        return {"text": "", "segments": [], "language": "en"}
+    
+    merged_result = {
+        "text": "",
+        "segments": [],
+        "language": valid_results[0].get("language", "en")
+    }
+    
+    text_parts = []
+    all_segments = []
+    
+    for i, chunk_result in enumerate(valid_results):
+        chunk_text = chunk_result.get("text", "").strip()
+        if chunk_text:
+            text_parts.append(chunk_text)
+        
+        # Process segments if available
+        segments = chunk_result.get("segments", [])
+        for segment in segments:
+            adjusted_segment = segment.copy()
+            # Adjust segment timestamps based on chunk position
+            chunk_offset = i * 25.0  # Approximate offset (chunk_length - overlap)
+            if "start" in adjusted_segment:
+                adjusted_segment["start"] += chunk_offset
+            if "end" in adjusted_segment:
+                adjusted_segment["end"] += chunk_offset
+            all_segments.append(adjusted_segment)
+    
+    merged_result["text"] = " ".join(text_parts)
+    merged_result["segments"] = all_segments
+    
+    return merged_result
+
+def format_long_text(text: str, max_line_length: int = 1000) -> str:
+    """Format long text into manageable lines."""
+    if len(text) <= max_line_length:
+        return text
+    
+    words = text.split()
+    lines = []
+    current_line = []
+    current_length = 0
+    
+    for word in words:
+        word_length = len(word) + 1
+        
+        if current_length + word_length > max_line_length and current_line:
+            lines.append(" ".join(current_line))
+            current_line = [word]
+            current_length = len(word)
+        else:
+            current_line.append(word)
+            current_length += word_length
+    
+    if current_line:
+        lines.append(" ".join(current_line))
+    
+    return "\n".join(lines)
+
+def get_hf_token(config: configparser.ConfigParser) -> Optional[str]:
+    """Get Hugging Face token from multiple sources."""
     hf_token = os.getenv('HF_TOKEN')
     if hf_token:
         logger.info("Using HF token from HF_TOKEN environment variable")
         return hf_token.strip()
     
-    # Priority 2: Environment variable HUGGING_FACE_HUB_TOKEN
     hf_token = os.getenv('HUGGING_FACE_HUB_TOKEN')
     if hf_token:
         logger.info("Using HF token from HUGGING_FACE_HUB_TOKEN environment variable")
         return hf_token.strip()
     
-    # Priority 3: Token file specified in config
     token_file = config['DEFAULT'].get('hf_token_file', '.hf_token')
     if token_file and os.path.isfile(token_file):
         try:
             with open(token_file, 'r', encoding='utf-8') as f:
                 token = f.read().strip()
-                if token:
+                if token and not token.startswith('#'):
                     logger.info(f"Using HF token from file: {token_file}")
                     return token
         except Exception as e:
             logger.warning(f"Error reading token file {token_file}: {e}")
     
-    # Priority 4: Default token file
-    default_token_file = '.hf_token'
-    if default_token_file != token_file and os.path.isfile(default_token_file):
-        try:
-            with open(default_token_file, 'r', encoding='utf-8') as f:
-                token = f.read().strip()
-                if token:
-                    logger.info(f"Using HF token from default file: {default_token_file}")
-                    return token
-        except Exception as e:
-            logger.warning(f"Error reading default token file {default_token_file}: {e}")
-    
-    # Priority 5: Check if already logged in via HF CLI
     try:
         from huggingface_hub import whoami
         user_info = whoami()
         if user_info:
             logger.info(f"Using existing HF CLI authentication for user: {user_info['name']}")
-            return "CLI_AUTH"  # Special marker for CLI authentication
+            return "CLI_AUTH"
     except Exception:
         pass
     
@@ -103,10 +170,7 @@ def get_hf_token(config: configparser.ConfigParser) -> Optional[str]:
     return None
 
 def setup_hf_authentication(config: configparser.ConfigParser) -> bool:
-    """
-    Setup Hugging Face authentication using various methods.
-    Returns True if authentication is successful or already exists.
-    """
+    """Setup Hugging Face authentication."""
     hf_token = get_hf_token(config)
     
     if not hf_token:
@@ -114,7 +178,6 @@ def setup_hf_authentication(config: configparser.ConfigParser) -> bool:
         return False
     
     if hf_token == "CLI_AUTH":
-        # Already authenticated via CLI
         return True
     
     try:
@@ -141,18 +204,16 @@ def create_token_file_if_needed(config_path: str = 'config.ini'):
                 f.write("# Remove these comment lines and paste your token below\n")
                 f.write("# hf_...\n")
             
-            # Set restrictive permissions on Unix-like systems
             if hasattr(os, 'chmod'):
-                os.chmod(token_file, 0o600)  # Read/write for owner only
+                os.chmod(token_file, 0o600)
             
             logger.info(f"Created token file template: {token_file}")
-            logger.info("Please edit this file and add your Hugging Face token")
             
         except Exception as e:
             logger.warning(f"Could not create token file {token_file}: {e}")
 
 def validate_audio_file(file_path: str) -> bool:
-    """Validate if the audio file exists and has a supported extension."""
+    """Validate audio file."""
     supported_extensions = {'.wav', '.mp3', '.flac', '.ogg', '.m4a'}
     if not os.path.isfile(file_path):
         logger.error(f"Audio file not found: {file_path}")
@@ -163,10 +224,7 @@ def validate_audio_file(file_path: str) -> bool:
     return True
 
 def get_audio_duration(file_path: str) -> Optional[float]:
-    """
-    Returns the duration of the audio file in seconds using sf.info.
-    Handles errors if the file cannot be read.
-    """
+    """Get audio duration in seconds."""
     try:
         info = sf.info(file_path)
         return info.frames / float(info.samplerate)
@@ -198,7 +256,6 @@ def check_mlx_availability() -> bool:
 
 def get_mlx_model_name(whisper_model: str) -> str:
     """Convert standard Whisper model names to MLX-compatible names."""
-    # MLX-Whisper model mapping
     mlx_model_mapping = {
         'tiny': 'mlx-community/whisper-tiny-mlx',
         'base': 'mlx-community/whisper-base-mlx',
@@ -209,35 +266,132 @@ def get_mlx_model_name(whisper_model: str) -> str:
         'large-v3': 'mlx-community/whisper-large-v3-mlx',
         'large-v3-turbo': 'mlx-community/whisper-large-v3-turbo'
     }
-    
     return mlx_model_mapping.get(whisper_model, whisper_model)
 
-def transcribe_audio_mlx(model_name: str, audio_file: str, language: str = None, task: str = 'transcribe') -> Optional[dict]:
+def load_audio_chunk(audio_file: str, start_time: float, end_time: float) -> str:
+    """Load a specific chunk of audio and save to temporary file."""
+    try:
+        import tempfile
+        import subprocess
+        
+        # Create temporary file
+        temp_dir = tempfile.gettempdir()
+        temp_filename = f"chunk_{start_time}_{end_time}_{int(time.time())}.wav"
+        temp_path = os.path.join(temp_dir, temp_filename)
+        
+        # Use ffmpeg to extract the chunk
+        cmd = [
+            'ffmpeg', '-i', audio_file,
+            '-ss', str(start_time),
+            '-t', str(end_time - start_time),
+            '-c', 'copy',
+            '-y', temp_path
+        ]
+        
+        result = subprocess.run(cmd, capture_output=True, text=True)
+        if result.returncode == 0:
+            return temp_path
+        else:
+            logger.warning(f"FFmpeg failed for chunk {start_time}-{end_time}: {result.stderr}")
+            return None
+            
+    except Exception as e:
+        logger.warning(f"Error creating audio chunk: {e}")
+        return None
+
+def transcribe_audio_mlx_chunked(model_name: str, audio_file: str, chunks: list, language: str = None, task: str = 'transcribe', verbose: bool = False) -> Optional[dict]:
+    """Transcribe audio file using MLX-Whisper with chunking."""
+    try:
+        import mlx_whisper
+        mlx_model_name = get_mlx_model_name(model_name)
+        
+        chunk_results = []
+        total_chunks = len(chunks)
+        temp_files = []  # Keep track of temp files to clean up
+        
+        logger.info(f"Processing {total_chunks} chunks with MLX-Whisper")
+        logger.info(f"Task: {task}, Target language: {language or 'auto-detect'}")
+        
+        for i, (start_time, end_time) in enumerate(chunks):
+            logger.info(f"Processing chunk {i+1}/{total_chunks}: {start_time:.1f}s - {end_time:.1f}s")
+            
+            # Create audio chunk file
+            chunk_file = load_audio_chunk(audio_file, start_time, end_time)
+            if chunk_file is None:
+                logger.warning(f"Skipping chunk {i+1} due to audio processing error")
+                chunk_results.append(None)
+                continue
+            
+            temp_files.append(chunk_file)
+            
+            try:
+                # Set up transcription parameters for MLX
+                transcribe_params = {
+                    'audio': chunk_file,
+                    'path_or_hf_repo': mlx_model_name,
+                    'task': task,  # 'translate' will convert to English
+                    'verbose': verbose
+                }
+                
+                # For MLX-Whisper, don't set language when task is 'translate'
+                # as it will automatically translate to English
+                if task == 'transcribe' and language:
+                    transcribe_params['language'] = language
+                
+                chunk_result = mlx_whisper.transcribe(**transcribe_params)
+                chunk_results.append(chunk_result)
+                
+                # Log progress
+                if chunk_result and 'text' in chunk_result:
+                    text_preview = chunk_result['text'][:100] + "..." if len(chunk_result['text']) > 100 else chunk_result['text']
+                    logger.info(f"Chunk {i+1} completed. Preview: {text_preview}")
+                
+            except Exception as e:
+                logger.warning(f"Failed to process chunk {i+1}: {e}")
+                chunk_results.append(None)
+        
+        # Clean up temporary files
+        for temp_file in temp_files:
+            try:
+                if os.path.exists(temp_file):
+                    os.remove(temp_file)
+            except Exception as e:
+                logger.warning(f"Could not remove temp file {temp_file}: {e}")
+        
+        return merge_chunk_results(chunk_results)
+        
+    except Exception as e:
+        logger.error(f"MLX chunked transcription failed: {e}")
+        return None
+
+def transcribe_audio_mlx(model_name: str, audio_file: str, language: str = None, task: str = 'transcribe', verbose: bool = False) -> Optional[dict]:
     """Transcribe audio file using MLX-Whisper model."""
     try:
         import mlx_whisper
         logger.info(f"Using MLX-Whisper for transcription with model: {model_name}")
         
-        # Convert model name to MLX format
         mlx_model_name = get_mlx_model_name(model_name)
         logger.info(f"Using MLX model: {mlx_model_name}")
+        logger.info(f"Task: {task}, Target language: {language or 'auto-detect'}")
         
-        # Set up transcription parameters
         transcribe_params = {
             'audio': audio_file,
             'path_or_hf_repo': mlx_model_name,
-            'task': task  # 'transcribe' keeps original language, 'translate' converts to English
+            'task': task,
+            'verbose': verbose
         }
         
-        if language:
+        # For MLX-Whisper, don't set language when task is 'translate'
+        if task == 'transcribe' and language:
             transcribe_params['language'] = language
             logger.info(f"Using specified language: {language}")
+        elif task == 'translate':
+            logger.info("Translating to English (language parameter not needed)")
         
         result = mlx_whisper.transcribe(**transcribe_params)
         
-        # Log the detected/used language
         if result and 'language' in result:
-            logger.info(f"Final transcription language: {result['language']}")
+            logger.info(f"Detected/Final language: {result['language']}")
         
         return result
         
@@ -245,27 +399,30 @@ def transcribe_audio_mlx(model_name: str, audio_file: str, language: str = None,
         logger.error(f"MLX transcription failed: {e}")
         return None
 
-def transcribe_audio_standard(model, audio_file: str, language: str = None, task: str = 'transcribe', use_fp16: bool = False) -> Optional[dict]:
+def transcribe_audio_standard(model, audio_file: str, language: str = None, task: str = 'transcribe', use_fp16: bool = False, verbose: bool = False) -> Optional[dict]:
     """Transcribe audio file using standard Whisper model."""
     try:
         logger.info(f"Using standard Whisper for transcription")
+        logger.info(f"Task: {task}, Target language: {language or 'auto-detect'}")
         
-        # Set up transcription parameters
         transcribe_params = {
             'audio': audio_file,
             'fp16': use_fp16,
-            'task': task  # 'transcribe' keeps original language, 'translate' converts to English
+            'task': task,
+            'verbose': verbose
         }
         
-        if language:
+        # For standard Whisper, don't set language when task is 'translate'
+        if task == 'transcribe' and language:
             transcribe_params['language'] = language
             logger.info(f"Using specified language: {language}")
+        elif task == 'translate':
+            logger.info("Translating to English (language parameter not needed)")
         
         result = model.transcribe(**transcribe_params)
         
-        # Log the detected/used language
         if result and 'language' in result:
-            logger.info(f"Final transcription language: {result['language']}")
+            logger.info(f"Detected/Final language: {result['language']}")
         
         return result
         
@@ -278,42 +435,43 @@ def get_optimal_device(force_cpu: bool = False) -> str:
     if force_cpu:
         return "cpu"
     
-    # Check for Apple Metal Performance Shaders (MPS)
     if hasattr(torch.backends, 'mps') and torch.backends.mps.is_available():
         return "mps"
     
-    # Check for CUDA
     if torch.cuda.is_available():
         return "cuda"
     
     return "cpu"
 
-def save_transcription(result: dict, audio_file: str, model_name: str, start_time: float, output_dir: str, backend: str, language: str = None) -> None:
-    """Save transcription to a file."""
+def save_transcription(result: dict, audio_file: str, model_name: str, start_time: float, output_dir: str, backend: str, language: str = None, max_line_length: int = 1000) -> None:
+    """Save transcription to a file with proper formatting."""
     try:
         model_name_for_file = model_name.replace('.', '_').replace('/', '_')
         filename = Path(audio_file).stem
         start_dt = datetime.fromtimestamp(start_time)
         
-        # Include language in filename if available
-        lang_suffix = f"_{language}" if language else ""
+        # Use 'en' for translated content
+        final_language = result.get('language', language or 'en')
+        lang_suffix = f"_{final_language}"
         output_filename = f"{filename}_{model_name_for_file}_{backend}{lang_suffix}_{start_dt.strftime('%Y%m%d%H%M')}.txt"
         output_path = Path(output_dir) / output_filename
         Path(output_dir).mkdir(parents=True, exist_ok=True)
         
+        # Format the text to avoid long lines
+        formatted_text = format_long_text(result['text'], max_line_length)
+        
         with open(output_path, "w", encoding="utf-8") as f:
-            f.write(result['text'])
+            f.write(formatted_text)
         
         logger.info(f"Transcription written to: {output_path}")
         
-        # Enhanced summary with language information
-        detected_language = result.get('language', 'unknown')
         print(f"\nSummary:")
         print(f"  Audio file: {audio_file}")
         print(f"  Model: {model_name}")
         print(f"  Backend: {backend}")
-        print(f"  Language: {detected_language}")
-        print(f"  Output: {output_path}\n")
+        print(f"  Final language: {final_language}")
+        print(f"  Output: {output_path}")
+        print(f"  Text length: {len(result['text'])} characters\n")
         
     except Exception as e:
         logger.error(f"Error saving transcription: {e}")
@@ -322,7 +480,6 @@ def main():
     """Main function to orchestrate audio transcription."""
     import sys
     try:
-        # Load configuration
         config = load_config()
         whisper_model: str = config['DEFAULT']['whisper_model']
         output_dir: str = config['DEFAULT']['output_dir']
@@ -330,23 +487,30 @@ def main():
         force_cpu: bool = config['DEFAULT'].getboolean('force_cpu', fallback=False)
         specified_language: str = config['DEFAULT'].get('language', '').strip()
         task: str = config['DEFAULT'].get('task', 'transcribe').strip()
+        
+        # Chunking options
+        enable_chunking: bool = config['DEFAULT'].getboolean('enable_chunking', fallback=True)
+        chunk_length: float = config['DEFAULT'].getfloat('chunk_length', fallback=30.0)
+        overlap_length: float = config['DEFAULT'].getfloat('overlap_length', fallback=5.0)
+        max_segment_length: int = config['DEFAULT'].getint('max_segment_length', fallback=1000)
+        verbose_output: bool = config['DEFAULT'].getboolean('verbose_output', fallback=False)
 
-        # Create token file template if needed
         create_token_file_if_needed()
-
-        # Setup Hugging Face authentication
         auth_success = setup_hf_authentication(config)
         if not auth_success:
             logger.info("Proceeding with public models only")
 
-        # Validate task parameter
         if task not in ['transcribe', 'translate']:
-            logger.warning(f"Invalid task '{task}'. Using 'transcribe' to maintain original language.")
-            task = 'transcribe'
+            logger.warning(f"Invalid task '{task}'. Using 'translate' for English output.")
+            task = 'translate'
 
-        logger.info(f"Task: {task} ({'maintains original language' if task == 'transcribe' else 'translates to English'})")
+        # Log task explanation
+        if task == 'translate':
+            logger.info("Task: translate (converts any language to English)")
+        else:
+            logger.info(f"Task: transcribe (maintains original language or specified language: {specified_language})")
 
-        # Set audio_file to the first file in 'source' folder if available
+        # Audio file handling
         source_dir = 'source'
         audio_file: Optional[str] = None
         if os.path.isdir(source_dir):
@@ -364,45 +528,41 @@ def main():
             logger.error(f"Directory '{source_dir}' does not exist.")
             sys.exit(1)
 
-        # Validate audio file
         if not validate_audio_file(audio_file):
             sys.exit(1)
 
-        # Get audio duration
         audio_length = get_audio_duration(audio_file)
         if audio_length is None:
             logger.error("Aborting due to audio file error")
             sys.exit(1)
+        
         src_hours, src_minutes = format_duration(audio_length)
         logger.info(f"Audio Duration: {src_hours} hours, {src_minutes} minutes")
 
-        # Language detection and setup
-        language_to_use = None
-        if specified_language:
-            language_to_use = specified_language
-            logger.info(f"Using user-specified language: {language_to_use}")
+        # Determine if chunking should be used
+        use_chunking = enable_chunking and audio_length > chunk_length * 2
+        if use_chunking:
+            chunks = chunk_audio_timestamps(audio_length, chunk_length, overlap_length)
+            logger.info(f"Using chunking: {len(chunks)} chunks of {chunk_length}s with {overlap_length}s overlap")
         else:
-            logger.info("No language specified, will auto-detect during transcription")
+            logger.info("Processing entire audio file at once")
 
-        # Determine transcription method and setup
+        # Backend selection
         use_mlx_backend = False
         model = None
         backend_name = "standard"
         
-        # Check if we should use MLX-Whisper
         if use_mlx and is_apple_silicon() and check_mlx_availability():
             use_mlx_backend = True
             backend_name = "mlx"
             logger.info(f"Using MLX-Whisper backend with model: {whisper_model}")
         else:
-            # Fall back to standard Whisper
             if use_mlx and is_apple_silicon() and not check_mlx_availability():
                 logger.warning("MLX-Whisper not available. Install with: pip install mlx-whisper")
                 logger.info("Falling back to standard Whisper")
             elif use_mlx and not is_apple_silicon():
                 logger.info("MLX-Whisper only available on Apple Silicon. Using standard Whisper")
             
-            # Setup standard Whisper
             device = get_optimal_device(force_cpu)
             logger.info(f"Using device: {device}")
             
@@ -422,15 +582,28 @@ def main():
         start_dt = datetime.fromtimestamp(start_time)
         logger.info(f"Start Time: {start_dt.strftime('%Y-%m-%d %H:%M:%S')}")
 
-        # Transcribe using appropriate backend
         result = None
         if use_mlx_backend:
-            result = transcribe_audio_mlx(whisper_model, audio_file, language=language_to_use, task=task)
+            if use_chunking:
+                result = transcribe_audio_mlx_chunked(
+                    whisper_model, audio_file, chunks, 
+                    language=specified_language if task == 'transcribe' else None, 
+                    task=task, verbose=verbose_output
+                )
+            else:
+                result = transcribe_audio_mlx(
+                    whisper_model, audio_file, 
+                    language=specified_language if task == 'transcribe' else None, 
+                    task=task, verbose=verbose_output
+                )
         else:
-            # Determine if we should use FP16
             device = get_optimal_device(force_cpu)
             use_fp16 = device in ["cuda", "mps"] and not force_cpu
-            result = transcribe_audio_standard(model, audio_file, language=language_to_use, task=task, use_fp16=use_fp16)
+            result = transcribe_audio_standard(
+                model, audio_file, 
+                language=specified_language if task == 'transcribe' else None, 
+                task=task, use_fp16=use_fp16, verbose=verbose_output
+            )
 
         if result is None:
             logger.error("Transcription failed")
@@ -442,13 +615,12 @@ def main():
         d_hours, d_minutes = format_duration(duration)
         logger.info(f"Transcription Duration: {d_hours} hours, {d_minutes} minutes")
 
-        # Calculate speed ratio
         speed_ratio = audio_length / duration if duration > 0 else 0
         logger.info(f"Speed ratio: {speed_ratio:.2f}x real-time")
 
         # Save transcription
-        final_language = result.get('language', language_to_use)
-        save_transcription(result, audio_file, whisper_model, start_time, output_dir, backend_name, final_language)
+        final_language = 'en' if task == 'translate' else result.get('language', specified_language)
+        save_transcription(result, audio_file, whisper_model, start_time, output_dir, backend_name, final_language, max_segment_length)
 
     except KeyboardInterrupt:
         logger.info("Transcription interrupted by user")
