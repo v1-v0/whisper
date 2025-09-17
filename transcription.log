@@ -77,3 +77,76 @@
 2025-09-17 00:25:37,182 - INFO - Start Time: 2025-09-17 00:25:37
 2025-09-17 00:33:51,910 - INFO - Transcription Duration: 0 hours, 8 minutes
 2025-09-17 00:33:51,911 - INFO - Transcription written to: outputs/5720-L2_large-v3-turbo_202509170025.txt
+2025-09-17 14:19:37,600 - INFO - Using audio file from 'source': source/5720-L03.MP3
+2025-09-17 14:19:37,600 - INFO - Audio Duration: 2 hours, 29 minutes
+2025-09-17 14:19:37,600 - INFO - Using device: cpu
+2025-09-17 14:19:37,618 - ERROR - Error loading Whisper model: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+2025-09-17 14:21:07,074 - INFO - Using audio file from 'source': source/5720-L03.MP3
+2025-09-17 14:21:07,074 - INFO - Audio Duration: 2 hours, 29 minutes
+2025-09-17 14:21:07,074 - INFO - Using device: cpu
+2025-09-17 14:21:07,083 - ERROR - Error loading Whisper model: <urlopen error [Errno 8] nodename nor servname provided, or not known>
+2025-09-17 14:44:12,142 - INFO - Using audio file from 'source': source/5720-L03.MP3
+2025-09-17 14:44:12,142 - INFO - Audio Duration: 2 hours, 29 minutes
+2025-09-17 14:44:12,142 - INFO - Using device: cpu
+2025-09-17 14:46:06,253 - INFO - Start Time: 2025-09-17 14:46:06
+2025-09-17 14:52:39,549 - INFO - Transcription Duration: 0 hours, 6 minutes
+2025-09-17 14:52:39,550 - INFO - Transcription written to: outputs/5720-L03_large-v3-turbo_202509171446.txt
+2025-09-17 14:54:43,520 - INFO - Using audio file from 'source': source/5720-L03.MP3
+2025-09-17 14:54:43,520 - INFO - Audio Duration: 2 hours, 29 minutes
+2025-09-17 14:54:43,520 - INFO - Using device: cpu
+2025-09-17 14:54:45,697 - INFO - Start Time: 2025-09-17 14:54:45
+2025-09-17 15:01:12,829 - INFO - Transcription Duration: 0 hours, 6 minutes
+2025-09-17 15:01:12,829 - INFO - Transcription written to: outputs/5720-L03_large-v3-turbo_202509171454.txt
+2025-09-17 16:24:00,441 - ERROR - Unexpected error in main: File contains no section headers.
+file: 'config.ini', line: 2
+'default_config = {\n'
+2025-09-17 16:24:23,903 - ERROR - Unexpected error in main: File contains no section headers.
+file: 'config.ini', line: 1
+'default_config = {\n'
+2025-09-17 16:26:23,895 - INFO - Using audio file from 'source': source/5720-L03.MP3
+2025-09-17 16:26:23,898 - INFO - Audio Duration: 2 hours, 29 minutes
+2025-09-17 16:26:40,646 - INFO - Using MLX-Whisper backend with model: large-v3-turbo
+2025-09-17 16:26:40,646 - INFO - Start Time: 2025-09-17 16:26:40
+2025-09-17 16:26:40,646 - INFO - Using MLX-Whisper for transcription
+2025-09-17 16:26:41,122 - ERROR - MLX transcription failed: 401 Client Error. (Request ID: Root=1-68ca70c1-542eef8b3d947dde5bf6d3f0;ebffa4cf-d264-4b6b-a380-2c429d614038)
+
+Repository Not Found for url: https://huggingface.co/api/models/large-v3-turbo/revision/main.
+Please make sure you specified the correct `repo_id` and `repo_type`.
+If you are trying to access a private or gated repo, make sure you are authenticated. For more details, see https://huggingface.co/docs/huggingface_hub/authentication
+Invalid username or password.
+2025-09-17 16:26:41,122 - ERROR - Transcription failed
+2025-09-17 16:37:50,468 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-17 16:37:50,469 - INFO - Using audio file from 'source': source/5720-L03.MP3
+2025-09-17 16:37:50,470 - INFO - Audio Duration: 2 hours, 29 minutes
+2025-09-17 16:37:50,911 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-17 16:37:50,912 - INFO - Start Time: 2025-09-17 16:37:50
+2025-09-17 16:37:50,912 - INFO - Using MLX-Whisper for transcription with model: large-v3
+2025-09-17 16:37:50,912 - INFO - Using MLX model: mlx-community/whisper-large-v3-mlx
+2025-09-17 16:41:18,016 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-17 16:41:18,016 - INFO - Using audio file from 'source': source/5720-L03.MP3
+2025-09-17 16:41:18,017 - INFO - Audio Duration: 2 hours, 29 minutes
+2025-09-17 16:41:18,463 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-17 16:41:18,463 - INFO - Start Time: 2025-09-17 16:41:18
+2025-09-17 16:41:18,463 - INFO - Using MLX-Whisper for transcription with model: large-v3
+2025-09-17 16:41:18,463 - INFO - Using MLX model: mlx-community/whisper-large-v3-mlx
+2025-09-17 17:07:41,556 - INFO - Transcription Duration: 0 hours, 26 minutes
+2025-09-17 17:07:41,557 - INFO - Speed ratio: 5.68x real-time
+2025-09-17 17:07:41,558 - INFO - Transcription written to: outputs/5720-L03_large-v3_mlx_202509171641.txt
+2025-09-17 17:33:10,484 - INFO - Task: translate (translates to English)
+2025-09-17 17:33:11,277 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-17 17:33:11,278 - INFO - Using audio file from 'source': source/5720-L03.m4a
+2025-09-17 17:33:11,278 - ERROR - Error reading audio file 'source/5720-L03.m4a': Error opening 'source/5720-L03.m4a': Format not recognised.
+2025-09-17 17:33:11,278 - ERROR - Aborting due to audio file error
+2025-09-17 17:33:36,891 - INFO - Task: translate (translates to English)
+2025-09-17 17:33:37,460 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-17 17:33:37,460 - INFO - Using audio file from 'source': source/5720-L03.MP3
+2025-09-17 17:33:37,461 - INFO - Audio Duration: 2 hours, 29 minutes
+2025-09-17 17:33:37,461 - INFO - No language specified, will auto-detect during transcription
+2025-09-17 17:33:38,111 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-17 17:33:38,111 - INFO - Start Time: 2025-09-17 17:33:38
+2025-09-17 17:33:38,111 - INFO - Using MLX-Whisper for transcription with model: large-v3
+2025-09-17 17:33:38,111 - INFO - Using MLX model: mlx-community/whisper-large-v3-mlx
+2025-09-17 17:46:10,778 - INFO - Final transcription language: zh
+2025-09-17 17:46:10,778 - INFO - Transcription Duration: 0 hours, 12 minutes
+2025-09-17 17:46:10,778 - INFO - Speed ratio: 11.94x real-time
+2025-09-17 17:46:10,778 - INFO - Transcription written to: outputs/5720-L03_large-v3_mlx_zh_202509171733.txt
