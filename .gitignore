@@ -1,3 +1,3 @@
-/outputs
-/source
+/outputs/*.*
+/source/*.*
 *.log
