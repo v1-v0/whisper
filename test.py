@@ -48,7 +48,7 @@ class AudioProcessor:
             return False
     
     def get_capabilities(self) -> str:
-        """Return available audio processing capabilities."""
+        """Return string describing available audio processing capabilities."""
         capabilities = []
         if self.pydub_available:
             capabilities.append("pydub")
@@ -58,7 +58,7 @@ class AudioProcessor:
         return ", ".join(capabilities)
 
 def validate_audio_file(file_path: str) -> bool:
-    """Validate audio file exists and has supported extension."""
+    """Validate if the audio file exists and has a supported extension."""
     supported_extensions = {
         '.wav', '.mp3', '.flac', '.ogg', 
         '.m4a', '.aac', '.wma'
@@ -81,7 +81,7 @@ def validate_audio_file(file_path: str) -> bool:
     return True
 
 def get_audio_info(file_path: str) -> Tuple[float, int]:
-    """Return duration and sample rate of audio file."""
+    """Return the duration and sample rate of the audio file."""
     try:
         info = sf.info(file_path)
         duration = float(info.frames) / float(info.samplerate)
@@ -95,7 +95,9 @@ def split_with_soundfile(
     model, 
     chunk_length_s: int = 600
 ) -> str:
-    """Split audio using soundfile - most reliable method."""
+    """
+    Split audio using soundfile only - most reliable method.
+    """
     try:
         logger.info(f"Using soundfile for chunking: {file_path}")
         
@@ -107,15 +109,16 @@ def split_with_soundfile(
             audio_data = np.mean(audio_data, axis=1)
         
         total_duration = len(audio_data) / sample_rate
-        logger.info(f"Loaded: {total_duration:.1f}s at {sample_rate}Hz")
+        logger.info(
+            f"Loaded: {total_duration:.1f}s at {sample_rate}Hz"
+        )
         
         # Calculate chunks - fix the type issue
         chunk_samples = int(chunk_length_s * sample_rate)
         num_chunks = int(np.ceil(len(audio_data) / chunk_samples))
         
         logger.info(
-            f"Processing {num_chunks} chunks of "
-            f"{chunk_length_s}s each"
+            f"Processing {num_chunks} chunks of {chunk_length_s}s each"
         )
         
         transcription_parts: List[str] = []
@@ -137,8 +140,8 @@ def split_with_soundfile(
                     
                     chunk_num = i + 1
                     logger.info(
-                        f"Transcribing chunk {chunk_num}/"
-                        f"{num_chunks} ({chunk_duration:.1f}s)..."
+                        f"Transcribing chunk {chunk_num}/{num_chunks} "
+                        f"({chunk_duration:.1f}s)..."
                     )
                     
                     result = model.transcribe(
@@ -154,19 +157,19 @@ def split_with_soundfile(
                             transcription_parts.append(chunk_text)
                             char_count = len(chunk_text)
                             logger.info(
-                                f"Chunk {chunk_num}: "
-                                f"{char_count} chars transcribed"
+                                f"Chunk {chunk_num}: {char_count} chars "
+                                f"transcribed"
                             )
                         else:
                             logger.warning(
-                                f"Chunk {chunk_num}: "
-                                f"No transcription generated"
+                                f"Chunk {chunk_num}: No transcription "
+                                f"generated"
                             )
                     else:
                         result_type = type(chunk_text)
                         logger.error(
-                            f"Chunk {chunk_num}: "
-                            f"Unexpected result type: {result_type}"
+                            f"Chunk {chunk_num}: Unexpected result type: "
+                            f"{result_type}"
                         )
                         
                 except Exception as e:
@@ -219,9 +222,7 @@ def split_with_pydub(
                     chunk.export(tmp_file.name, format="wav")
                     
                     chunk_num = i // chunk_length_ms + 1
-                    logger.info(
-                        f"Transcribing pydub chunk {chunk_num}..."
-                    )
+                    logger.info(f"Transcribing pydub chunk {chunk_num}...")
                     
                     result = model.transcribe(
                         tmp_file.name, 
@@ -266,7 +267,7 @@ def split_with_librosa(
         )
         
         total_duration = len(audio_data) / sample_rate
-        chunk_samples = int(chunk_length_s * sample_rate)
+        chunk_samples = int(chunk_length_s * sample_rate)  # Fix: ensure int
         
         transcription_parts: List[str] = []
         
@@ -307,7 +308,7 @@ def split_with_librosa(
         return ""
 
 def find_audio_file(input_dir: str = "source") -> Optional[str]:
-    """Find first valid audio file in specified directory."""
+    """Find the first valid audio file in the specified directory."""
     if not Path(input_dir).exists():
         logger.error(f"Directory '{input_dir}' does not exist.")
         return None
@@ -339,14 +340,13 @@ def parse_args():
         help="Path to audio file"
     )
     
-    model_choices = [
-        'tiny', 'base', 'small', 'medium', 'large', 
-        'large-v2', 'large-v3', 'large-v3-turbo'
-    ]
     parser.add_argument(
         "--model", 
         default="large-v3-turbo",
-        choices=model_choices,
+        choices=[
+            'tiny', 'base', 'small', 'medium', 'large', 
+            'large-v2', 'large-v3', 'large-v3-turbo'
+        ],
         help="Whisper model to use"
     )
     
@@ -384,11 +384,7 @@ def generate_output_filename(audio_file: str, model_name: str) -> str:
     model_safe = model_name.replace('.', '_')
     timestamp = datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
     
-    filename = (
-        f"{base_name}_{model_safe}_"
-        f"{timestamp}_transcription.txt"
-    )
-    return filename
+    return f"{base_name}_{model_safe}_{timestamp}_transcription.txt"
 
 def main():
     args = parse_args()
@@ -480,9 +476,7 @@ def main():
                 transcription = transcription_result
             else:
                 result_type = type(transcription_result)
-                logger.error(
-                    f"Unexpected transcription type: {result_type}"
-                )
+                logger.error(f"Unexpected transcription type: {result_type}")
                 sys.exit(1)
         
         if not transcription.strip():
@@ -509,10 +503,7 @@ def main():
     output_path = output_dir / output_name
     
     try:
-        output_path.write_text(
-            transcription.strip(), 
-            encoding='utf-8'
-        )
+        output_path.write_text(transcription.strip(), encoding='utf-8')
         logger.info(f"Saved to: {output_path}")
     except Exception as e:
         logger.error(f"Failed to save: {e}")
