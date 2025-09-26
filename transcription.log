@@ -2475,3 +2475,6 @@ Invalid username or password.
 2025-09-18 02:05:52,248 - INFO - Transcription Duration: 0 hours, 13 minutes
 2025-09-18 02:05:52,249 - INFO - Speed ratio: 11.13x real-time
 2025-09-18 02:05:52,250 - INFO - Transcription written to: outputs/5720-L03_large-v3_mlx_zh_202509180152.txt
+2025-09-27 01:58:39,895 - INFO - Using audio file from 'source': source/FkbOpI3QVTk.mp3
+2025-09-27 01:58:39,896 - ERROR - Error reading audio file 'source/FkbOpI3QVTk.mp3': Error opening 'source/FkbOpI3QVTk.mp3': Format not recognised.
+2025-09-27 01:58:39,896 - ERROR - Aborting due to audio file error
