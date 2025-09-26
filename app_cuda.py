@@ -100,7 +100,7 @@ def process_transcription_result(result_text: Union[str, List[str]]) -> str:
         logger.error(f"Unexpected transcription result type: {type(result_text)}")
         return ""
 
-def split_with_soundfile(file_path: str, model, chunk_length_s: int = 300) -> str:
+def split_with_soundfile(file_path: str, model, chunk_length_s: int = 600) -> str:
     """Process audio in chunks using soundfile for reliable handling of large files."""
     try:
         logger.info(f"Processing audio with soundfile: {file_path}")
@@ -159,7 +159,7 @@ def split_with_soundfile(file_path: str, model, chunk_length_s: int = 300) -> st
         logger.error(f"Soundfile processing failed: {str(e)}")
         return ""
 
-def split_with_pydub(file_path: str, model, chunk_length_s: int = 300) -> str:
+def split_with_pydub(file_path: str, model, chunk_length_s: int = 600) -> str:
     """Process audio in chunks using pydub as a fallback method."""
     try:
         from pydub import AudioSegment
@@ -203,7 +203,7 @@ def split_with_pydub(file_path: str, model, chunk_length_s: int = 300) -> str:
         logger.error(f"Pydub processing failed: {str(e)}")
         return ""
 
-def split_with_librosa(file_path: str, model, chunk_length_s: int = 300) -> str:
+def split_with_librosa(file_path: str, model, chunk_length_s: int = 600) -> str:
     """Process audio in chunks using librosa as a fallback method."""
     try:
         import librosa
@@ -276,7 +276,7 @@ def parse_args() -> argparse.Namespace:
     
     parser.add_argument(
         "--model", 
-        default="large-v3",  # Changed to base to reduce memory usage
+        default="large-v3-turbo",  # Changed to base to reduce memory usage
         choices=['tiny', 'base', 'small', 'medium', 'large', 'large-v2', 'large-v3', 'large-v3-turbo'],
         help="Whisper model to use (default: base)"
     )
@@ -290,7 +290,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--chunk-length", 
         type=int, 
-        default=300,  # Reduced from 600 to 300 to lower memory usage
+        default=600,  # Reduced from 600 to 300 to lower memory usage
         help="Length of audio chunks in seconds (default: 300)"
     )
     
