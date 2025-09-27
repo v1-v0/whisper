@@ -513,16 +513,19 @@ def main() -> None:
         # Audio file handling
         source_dir = 'source'
         audio_file: Optional[str] = None
+
         if os.path.isdir(source_dir):
-            files = [f for f in os.listdir(source_dir) if os.path.isfile(os.path.join(source_dir, f))]
+            # Only select mp3 files
+            files = [f for f in os.listdir(source_dir)
+                     if os.path.isfile(os.path.join(source_dir, f)) and f.lower().endswith('.mp3')]
             if len(files) == 1:
                 audio_file = os.path.join(source_dir, files[0])
-                logger.info(f"Using audio file from 'source': {audio_file}")
+                logger.info(f"Using MP3 audio file from 'source': {audio_file}")
             elif len(files) == 0:
-                logger.error(f"No files found in '{source_dir}' directory.")
+                logger.error(f"No MP3 files found in '{source_dir}' directory.")
                 sys.exit(1)
             else:
-                logger.warning(f"Multiple files found in '{source_dir}': {files}. Using the first: {files[0]}")
+                logger.warning(f"Multiple MP3 files found in '{source_dir}': {files}. Using the first: {files[0]}")
                 audio_file = os.path.join(source_dir, files[0])
         else:
             logger.error(f"Directory '{source_dir}' does not exist.")
