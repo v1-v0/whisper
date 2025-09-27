@@ -31,7 +31,7 @@ def load_config(config_path: str = 'config.ini') -> configparser.ConfigParser:
             'force_cpu': 'false',
             'hf_token_file': '.hf_token',
             'language': 'en',  # Set to English for English transcription
-            'task': 'translate',  # Use translate to convert Chinese to English
+            'task': 'transcribe',  # Use translate to convert Chinese to English
             # Chunking options
             'enable_chunking': 'true',
             'chunk_length': '30',
