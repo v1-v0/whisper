@@ -2708,3 +2708,295 @@ Invalid username or password.
 2025-09-27 16:49:03,370 - INFO - Transcription Duration: 0 hours, 1 minutes
 2025-09-27 16:49:03,370 - INFO - Speed ratio: 13.62x real-time
 2025-09-27 16:49:03,370 - INFO - Transcription written to: outputs/20mins_muscule_large-v3_mlx_zh_202509271647.txt
+2025-09-27 17:05:17,099 - INFO - Using HF token from file: .hf_token
+2025-09-27 17:05:17,417 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-27 17:05:17,417 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-27 17:05:17,417 - WARNING - Multiple MP3 files found in 'source': ['20minsSkeleton-PartA.mp3', '20minsSkeleton-PartB.mp3']. Using the first: 20minsSkeleton-PartA.mp3
+2025-09-27 17:05:17,418 - INFO - Audio Duration: 0 hours, 16 minutes
+2025-09-27 17:05:17,418 - INFO - Using chunking: 4 chunks of 300.0s with 5.0s overlap
+2025-09-27 17:05:17,876 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-27 17:05:17,876 - INFO - Start Time: 2025-09-27 17:05:17
+2025-09-27 17:05:17,876 - INFO - Processing 4 chunks with MLX-Whisper
+2025-09-27 17:05:17,876 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-27 17:05:17,877 - INFO - Processing chunk 1/4: 0.0s - 300.0s
+2025-09-27 17:06:05,240 - INFO - Chunk 1 completed. Preview:  rounds成年人体内有206块骨头和超过200个关节 组成大概占体重的20%婴儿出生时身体大概有300块骨头随着成长过程中,骨头会融合最后剩下206块骨头骨头的大小不同从中尔中最小骨头到大腿中最大...
+2025-09-27 17:06:05,240 - INFO - Processing chunk 2/4: 295.0s - 595.0s
+2025-09-27 17:06:39,597 - INFO - Chunk 2 completed. Preview: 大脑和面部首先说说颅骨八块颅骨每一块都独特的形状额骨额骨是构成前额的扁骨已形成眼窝的上部有两个主要功能分别是支撑头部结构和保护大脑包括眼睛和鼻腔一对顶骨位于头骨的侧面和顶部而四块骨头和顶骨具有边界称为...
+2025-09-27 17:06:39,597 - INFO - Processing chunk 3/4: 590.0s - 890.0s
+2025-09-27 17:06:55,211 - INFO - Chunk 3 completed. Preview: Insular 和外側架架 Lateral Socus 的重要標誌它都是手術期間進入了蝶骨脊Spinocleidus 和視神經管的主要部位蝶骨是臉部最小的骨頭位於眼腔內側是最易碎的骨頭鼻骨是形成鼻樑的...
+2025-09-27 17:06:55,211 - INFO - Processing chunk 4/4: 885.0s - 993.3s
+2025-09-27 17:07:00,979 - INFO - Chunk 4 completed. Preview: 美骨由三至五個融合的美椎骨組成從上至下逐漸變細美骨的骨絡在26歲左右開始融合直到晚年至完全融合肋骨是一組12對骨頭形成胸部的保護籠胸腔的主要功能是保護胸腔內的器官包括了心臟和肺部胸腔由三種類型骨頭組成...
+2025-09-27 17:07:00,980 - INFO - Transcription Duration: 0 hours, 1 minutes
+2025-09-27 17:07:00,980 - INFO - Speed ratio: 9.63x real-time
+2025-09-27 17:07:00,980 - INFO - Transcription written to: outputs/20minsSkeleton-PartA_large-v3_mlx_zh_202509271705.txt
+2025-09-27 17:07:38,199 - INFO - Using HF token from file: .hf_token
+2025-09-27 17:07:38,523 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-27 17:07:38,523 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-27 17:07:38,523 - INFO - Using MP3 audio file from 'source': source/20minsSkeleton-PartB.mp3
+2025-09-27 17:07:38,524 - INFO - Audio Duration: 0 hours, 15 minutes
+2025-09-27 17:07:38,524 - INFO - Using chunking: 4 chunks of 300.0s with 5.0s overlap
+2025-09-27 17:07:39,010 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-27 17:07:39,010 - INFO - Start Time: 2025-09-27 17:07:39
+2025-09-27 17:07:39,010 - INFO - Processing 4 chunks with MLX-Whisper
+2025-09-27 17:07:39,010 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-27 17:07:39,010 - INFO - Processing chunk 1/4: 0.0s - 300.0s
+2025-09-27 17:07:57,143 - INFO - Chunk 1 completed. Preview: 上一集我介绍了骨骼系统的功能、分类和中轴骨骼今集我继续介绍四肢骨骼和骨头的结构胸大由锁骨和肩胛骨组成作用是将上肢附在中轴骨骼的胸骨上肩胛骨是一个平坦的三角形骨头它位于肩膀的后部由锁骨支撑着锁骨和胯骨連...
+2025-09-27 17:07:57,143 - INFO - Processing chunk 2/4: 295.0s - 595.0s
+2025-09-27 17:08:12,605 - INFO - Chunk 2 completed. Preview: 帽子比其他零掌脈的帽子都長帽子是人手上唯一可以有不同轉向的手指骨帽子負責大約40%的手部功能另外手有更容易改進握力,做出更準確的動作骨盆帶 Pelvic Girdle 由髖骨組成作為每個下肢的輔助點骨...
+2025-09-27 17:08:12,605 - INFO - Processing chunk 3/4: 590.0s - 890.0s
+2025-09-27 17:08:31,954 - INFO - Chunk 3 completed. Preview: Metatarsopalangeal joints是树骨和每个脚趾的近截子骨之间的关节以关节形成脚掌第一树骨的子骨关节和大脚趾形成一直线这是足部疼痛和其他问题常见的部位骨头是由骨膜 ,骨质 ,和骨髓 ...
+2025-09-27 17:08:31,954 - INFO - Processing chunk 4/4: 885.0s - 935.3s
+2025-09-27 17:08:35,452 - INFO - Chunk 4 completed. Preview: 称之为吸收坑或者在致蜜骨里面划出一条隧道钙质就可以释放到血液随后破骨细胞就消失了钙充质干细胞是成骨细胞的前体沿着动月或者粒坑出现在那里会增加繁殖或增加数量而且会变化形成了前成骨细胞在粒坑里面前成骨细胞...
+2025-09-27 17:08:35,453 - INFO - Transcription Duration: 0 hours, 0 minutes
+2025-09-27 17:08:35,453 - INFO - Speed ratio: 16.57x real-time
+2025-09-27 17:08:35,454 - INFO - Transcription written to: outputs/20minsSkeleton-PartB_large-v3_mlx_zh_202509271707.txt
+2025-09-29 22:30:36,783 - INFO - Using HF token from file: .hf_token
+2025-09-29 22:30:37,187 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 22:30:37,187 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 22:30:37,187 - INFO - Using MP3 audio file from 'source': source/20mins_muscule.mp3
+2025-09-29 22:30:37,190 - INFO - Audio Duration: 0 hours, 17 minutes
+2025-09-29 22:30:37,190 - INFO - Using chunking: 4 chunks of 300.0s with 5.0s overlap
+2025-09-29 22:30:38,477 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 22:30:38,477 - INFO - Start Time: 2025-09-29 22:30:38
+2025-09-29 22:30:38,477 - INFO - Processing 4 chunks with MLX-Whisper
+2025-09-29 22:30:38,477 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 22:30:38,477 - INFO - Processing chunk 1/4: 0.0s - 300.0s
+2025-09-29 22:30:56,139 - INFO - Chunk 1 completed. Preview: 肌肉佔身體重量的40%肌肉系統主要有6個功能肌肉系統的主要功能是Movement當肌肉收縮時,它有助於一般動作技能Gross Movement和精細技能Find Movement一般動作技能是指大幅度...
+2025-09-29 22:30:56,139 - INFO - Processing chunk 2/4: 295.0s - 595.0s
+2025-09-29 22:31:20,934 - INFO - Chunk 2 completed. Preview: 通常用于将结构固定于而保持稳定有些肌肉的长度非常之长举个例子,例如大腿的膨胀肌Sartorius的直径可以达到100个微米micrometer,而长度可以达到30cm肌肉纤维的质膜,称之为肌膜Sacr...
+2025-09-29 22:31:20,934 - INFO - Processing chunk 3/4: 590.0s - 890.0s
+2025-09-29 22:31:52,890 - INFO - Chunk 3 completed. Preview: 充填Power Stroke的启动其中细丝被拉近肌节的中线新的ATP分子和肌球蛋白头部结合导致肌和蛋白的跨桥分离ATP随后被水解变成了ADP和无机磷酸盐而能量从ATP转移到肌球蛋白头部就像枪的拉伸一样...
+2025-09-29 22:31:52,891 - INFO - Processing chunk 4/4: 885.0s - 1031.2s
+2025-09-29 22:32:00,654 - INFO - Chunk 4 completed. Preview: 插入點Inception 位於赤骨Owner的共同根件三頭肌的主功能是爪骨關節伸展前臂四頭肌Crotis Ephemeris 是人體最強壯的肌肉它位於大腿前側與膨脹肌Sartorius 一同四頭肌由四...
+2025-09-29 22:32:00,655 - INFO - Transcription Duration: 0 hours, 1 minutes
+2025-09-29 22:32:00,655 - INFO - Speed ratio: 12.55x real-time
+2025-09-29 22:32:00,655 - INFO - Transcription written to: outputs/20mins_muscule_large-v3_mlx_zh_202509292230.txt
+2025-09-29 22:46:09,387 - INFO - Using HF token from file: .hf_token
+2025-09-29 22:46:09,744 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 22:46:09,745 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 22:46:09,745 - INFO - Using MP3 audio file from 'source': source/20分鐘基礎生理學 呼吸系統_上.mp3
+2025-09-29 22:46:09,745 - INFO - Audio Duration: 0 hours, 10 minutes
+2025-09-29 22:46:09,745 - INFO - Using chunking: 3 chunks of 300.0s with 5.0s overlap
+2025-09-29 22:46:10,383 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 22:46:10,383 - INFO - Start Time: 2025-09-29 22:46:10
+2025-09-29 22:46:10,383 - INFO - Processing 3 chunks with MLX-Whisper
+2025-09-29 22:46:10,383 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 22:46:10,383 - INFO - Processing chunk 1/3: 0.0s - 300.0s
+2025-09-29 22:46:33,612 - INFO - Chunk 1 completed. Preview: 呼吸呼吸系统呼吸系统呼吸系统呼吸系统呼吸系统呼吸系统呼吸是人类和其他生物的七大特征之一呼吸系统是人类其中一个器官系统主要功能是将空气中的氧气吸入身体从肺部扩散到血液过程称为气体交换Gas exchan...
+2025-09-29 22:46:33,612 - INFO - Processing chunk 2/3: 295.0s - 595.0s
+2025-09-29 22:47:07,282 - INFO - Chunk 2 completed. Preview: 右邊的廢部次級支氣管Secondary Bronchi供應每一個廢的葉右邊三個左邊兩個然後每一個廢支氣管再分為三級支氣管Tertiary Bronchi為每一個廢部的十個支氣管段輸出和輸入空氣小支氣管...
+2025-09-29 22:47:07,283 - INFO - Processing chunk 3/3: 590.0s - 631.3s
+2025-09-29 22:47:08,243 - INFO - Chunk 3 completed. Preview:  Undertexter av Nicolai Winther
+2025-09-29 22:47:08,244 - INFO - Transcription Duration: 0 hours, 0 minutes
+2025-09-29 22:47:08,244 - INFO - Speed ratio: 10.91x real-time
+2025-09-29 22:47:08,244 - INFO - Transcription written to: outputs/20分鐘基礎生理學 呼吸系統_上_large-v3_mlx_zh_202509292246.txt
+2025-09-29 22:47:47,543 - INFO - Using HF token from file: .hf_token
+2025-09-29 22:47:47,875 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 22:47:47,875 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 22:47:47,876 - INFO - Using MP3 audio file from 'source': source/解剖生理學 導讀系列II 呼吸系統_上.mp3
+2025-09-29 22:47:47,876 - INFO - Audio Duration: 0 hours, 9 minutes
+2025-09-29 22:47:47,877 - INFO - Processing entire audio file at once
+2025-09-29 22:47:48,355 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 22:47:48,355 - INFO - Start Time: 2025-09-29 22:47:48
+2025-09-29 22:47:48,355 - INFO - Using MLX-Whisper for transcription with model: large-v3
+2025-09-29 22:47:48,355 - INFO - Using MLX model: mlx-community/whisper-large-v3-mlx
+2025-09-29 22:47:48,355 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 22:48:18,598 - INFO - Detected/Final language: zh
+2025-09-29 22:48:18,599 - INFO - Transcription Duration: 0 hours, 0 minutes
+2025-09-29 22:48:18,599 - INFO - Speed ratio: 18.62x real-time
+2025-09-29 22:48:18,599 - INFO - Transcription written to: outputs/解剖生理學 導讀系列II 呼吸系統_上_large-v3_mlx_zh_202509292247.txt
+2025-09-29 22:48:37,334 - INFO - Using HF token from file: .hf_token
+2025-09-29 22:48:37,661 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 22:48:37,661 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 22:48:37,661 - INFO - Using MP3 audio file from 'source': source/解剖生理學 導讀系列II 呼吸系統_下.mp3
+2025-09-29 22:48:37,663 - INFO - Audio Duration: 0 hours, 11 minutes
+2025-09-29 22:48:37,663 - INFO - Using chunking: 3 chunks of 300.0s with 5.0s overlap
+2025-09-29 22:48:38,153 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 22:48:38,153 - INFO - Start Time: 2025-09-29 22:48:38
+2025-09-29 22:48:38,153 - INFO - Processing 3 chunks with MLX-Whisper
+2025-09-29 22:48:38,153 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 22:48:38,153 - INFO - Processing chunk 1/3: 0.0s - 300.0s
+2025-09-29 22:48:57,499 - INFO - Chunk 1 completed. Preview: 气体交换分为外呼吸external respiration和内呼吸internal respiration外呼吸external respiration是在废气泡进行当氧气从废气泡扩散到微子血管里面的...
+2025-09-29 22:48:57,500 - INFO - Processing chunk 2/3: 295.0s - 595.0s
+2025-09-29 22:49:12,369 - INFO - Chunk 2 completed. Preview: 50%的saturation所需要的partial pressure降低了线就会向左移影响了hemoglobin和oxygen binding的因素有大概五个包括了二氧化碳、pH、温度另外一个物质叫D...
+2025-09-29 22:49:12,369 - INFO - Processing chunk 3/3: 590.0s - 694.1s
+2025-09-29 22:49:16,984 - INFO - Chunk 3 completed. Preview: 最主要是会侦测到PO2呼吸控制中枢先说一下多数呼吸中枢DRG是最重要的呼吸中枢主要控制吸气作用基本呼吸的节奏另一个叫做VRG这叫复则呼吸群正常呼吸时不会激活什么情况下会激活这个组织的细胞呢?是当动作的...
+2025-09-29 22:49:16,984 - INFO - Transcription Duration: 0 hours, 0 minutes
+2025-09-29 22:49:16,984 - INFO - Speed ratio: 17.87x real-time
+2025-09-29 22:49:16,984 - INFO - Transcription written to: outputs/解剖生理學 導讀系列II 呼吸系統_下_large-v3_mlx_zh_202509292248.txt
+2025-09-29 23:03:02,057 - INFO - Using HF token from file: .hf_token
+2025-09-29 23:03:02,380 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 23:03:02,380 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 23:03:02,380 - INFO - Using MP3 audio file from 'source': source/解剖生理學 導讀系列II Ep1 血液.mp3
+2025-09-29 23:03:02,380 - INFO - Audio Duration: 0 hours, 18 minutes
+2025-09-29 23:03:02,380 - INFO - Using chunking: 4 chunks of 300.0s with 5.0s overlap
+2025-09-29 23:03:02,828 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 23:03:02,828 - INFO - Start Time: 2025-09-29 23:03:02
+2025-09-29 23:03:02,828 - INFO - Processing 4 chunks with MLX-Whisper
+2025-09-29 23:03:02,828 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 23:03:02,828 - INFO - Processing chunk 1/4: 0.0s - 300.0s
+2025-09-29 23:03:28,019 - INFO - Chunk 1 completed. Preview: 大家好,我是Jeff,这一集会讲关于血液的,首先讲下血液的一些基本的资料先,血液其实属于液态的结体组织,英文就叫做fluid connective tissue,重温回来,基本上身体有四大组织,分别是...
+2025-09-29 23:03:28,019 - INFO - Processing chunk 2/4: 295.0s - 595.0s
+2025-09-29 23:03:45,261 - INFO - Chunk 2 completed. Preview: 这个希腊字也很明明,包括了Alpha和Beta-goblinAlpha和Beta-goblin是做什么的呢?它主要是运输一些有用性的维他命那什么是有用性维他命呢?是包括了A,D,E和K另一种是很特别的...
+2025-09-29 23:03:45,262 - INFO - Processing chunk 3/4: 590.0s - 890.0s
+2025-09-29 23:04:05,342 - INFO - Chunk 3 completed. Preview: 这个红血球里面的33%含有血红素,英文叫HemoglobinHemo这个字其实是指red的意思,中文叫赤色,即是红色血液的红色主要是由Hemoglobin,当然血红素是用来运载氧气的这个红血球里面有三...
+2025-09-29 23:04:05,342 - INFO - Processing chunk 4/4: 885.0s - 1109.5s
+2025-09-29 23:04:16,323 - INFO - Chunk 4 completed. Preview: 会封锁受破损位置受破损位置会慢慢修补最后当然要溶解出来否则这些凝血物质如果掉进血管里面就会塞进血管里面最后当受破损位置完全復苏康复、还原后这个肺骨便会溶解出来要degrade所以血管装填主要目的是什么...
+2025-09-29 23:04:16,323 - INFO - Transcription Duration: 0 hours, 1 minutes
+2025-09-29 23:04:16,323 - INFO - Speed ratio: 15.10x real-time
+2025-09-29 23:04:16,324 - INFO - Transcription written to: outputs/解剖生理學 導讀系列II Ep1 血液_large-v3_mlx_zh_202509292303.txt
+2025-09-29 23:05:09,284 - INFO - Using HF token from file: .hf_token
+2025-09-29 23:05:09,608 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 23:05:09,609 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 23:05:09,609 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep2 心臟.mp3
+2025-09-29 23:05:09,610 - INFO - Audio Duration: 0 hours, 20 minutes
+2025-09-29 23:05:09,610 - INFO - Using chunking: 5 chunks of 300.0s with 5.0s overlap
+2025-09-29 23:05:10,101 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 23:05:10,101 - INFO - Start Time: 2025-09-29 23:05:10
+2025-09-29 23:05:10,101 - INFO - Processing 5 chunks with MLX-Whisper
+2025-09-29 23:05:10,101 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 23:05:10,101 - INFO - Processing chunk 1/5: 0.0s - 300.0s
+2025-09-29 23:05:27,229 - INFO - Chunk 1 completed. Preview: 这一集会讲心血管循环系统先解释一下字首先讲一下CardioCardio是心脏有时大家去医院或是医疗器械都会有些字叫Cardio即是心脏另外第二个就是Vascular即是血管大家看到这个字都知道心血管循...
+2025-09-29 23:05:27,229 - INFO - Processing chunk 2/5: 295.0s - 595.0s
+2025-09-29 23:05:42,784 - INFO - Chunk 2 completed. Preview: 反组成的Tricuspid Valve血液冲过这个Valve之后就会去到第二个目的地就是右肺右肾室RV肾室将血液冲过去Pulmonary Valve肺的反就会经过肺动脉Left and Right P...
+2025-09-29 23:05:42,784 - INFO - Processing chunk 3/5: 590.0s - 890.0s
+2025-09-29 23:05:58,821 - INFO - Chunk 3 completed. Preview: 跳跃的一些规律有些病人叫做心律失调所以叫Arithmias这个心脏跳的时候是否有节奏还是会时快时慢呢都会由这个ECG所可以看到第二个每一个的Cycle就是每一次跳跃有一个Cycle从这个Cycle的数...
+2025-09-29 23:05:58,821 - INFO - Processing chunk 4/5: 885.0s - 1185.0s
+2025-09-29 23:06:12,737 - INFO - Chunk 4 completed. Preview: 另外,肺部血液会回到左肺所以左肺和右肺是正在进入血液血液充满后,同步P-wave电流会去到左肺由于血液压力和心脏肌肉收缩血液会逼出右边,右肺和左肺会冲开Tricuspid Valve和Bicuspid...
+2025-09-29 23:06:12,738 - INFO - Processing chunk 5/5: 1180.0s - 1227.5s
+2025-09-29 23:06:15,213 - INFO - Chunk 5 completed. Preview: Capellary 微小管微小管有三种,第一种是最多最普遍叫做continuous即是血管之间没有裂缝也不会有开放式即是血液不会流出身体各部分第二种叫做continuous fenestration中...
+2025-09-29 23:06:15,214 - INFO - Transcription Duration: 0 hours, 1 minutes
+2025-09-29 23:06:15,214 - INFO - Speed ratio: 18.85x real-time
+2025-09-29 23:06:15,214 - INFO - Transcription written to: outputs/解剖學和生理學摘要 II Ep2 心臟_large-v3_mlx_zh_202509292305.txt
+2025-09-29 23:09:10,246 - INFO - Using HF token from file: .hf_token
+2025-09-29 23:09:10,569 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 23:09:10,570 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 23:09:10,570 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep3 心輸出量.mp3
+2025-09-29 23:09:10,571 - INFO - Audio Duration: 0 hours, 15 minutes
+2025-09-29 23:09:10,571 - INFO - Using chunking: 4 chunks of 300.0s with 5.0s overlap
+2025-09-29 23:09:11,045 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 23:09:11,045 - INFO - Start Time: 2025-09-29 23:09:11
+2025-09-29 23:09:11,045 - INFO - Processing 4 chunks with MLX-Whisper
+2025-09-29 23:09:11,045 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 23:09:11,045 - INFO - Processing chunk 1/4: 0.0s - 300.0s
+2025-09-29 23:09:43,511 - INFO - Chunk 1 completed. Preview: 这一集会讲HemodynamicsHemo 指血液Dynamics 指活动或运动或流动,在物理学上来说所以Hemodynamics 的中文意思是指血液的流动学即量计究竟心脏输出多少血液而这个是用名称之...
+2025-09-29 23:09:43,511 - INFO - Processing chunk 2/4: 295.0s - 595.0s
+2025-09-29 23:10:00,184 - INFO - Chunk 2 completed. Preview: 心脏关闭后,防止血液倒流到心室这个情况下, volume 大约 120 mL这个称之为 N-of-diastolic volume这个 diastolic 是指 ventricle 的意思即是 ven...
+2025-09-29 23:10:00,184 - INFO - Processing chunk 3/4: 590.0s - 890.0s
+2025-09-29 23:10:16,702 - INFO - Chunk 3 completed. Preview: 血管的收缩度,或者周边的血管的阻力例如血管收窄了第三就是血液量,当然和收缩游戏相关究竟有些血流到心脏,也会有多少血输出体外另外最后一个就是血液的粘度例如水分增加减少,或是血细胞多了或是其他因素,令到血...
+2025-09-29 23:10:16,702 - INFO - Processing chunk 4/4: 885.0s - 938.9s
+2025-09-29 23:10:19,386 - INFO - Chunk 4 completed. Preview: 大概是82或以下的上压而下压大概是80或以下的当血液增加到120或以上就称之为hypertensionprimary hypertension 90%-95%其实是没有特别的原因但有一些风险因素例如肥...
+2025-09-29 23:10:19,387 - INFO - Transcription Duration: 0 hours, 1 minutes
+2025-09-29 23:10:19,387 - INFO - Speed ratio: 13.74x real-time
+2025-09-29 23:10:19,387 - INFO - Transcription written to: outputs/解剖學和生理學摘要 II Ep3 心輸出量_large-v3_mlx_zh_202509292309.txt
+2025-09-29 23:11:16,554 - INFO - Using HF token from file: .hf_token
+2025-09-29 23:11:16,882 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 23:11:16,882 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 23:11:16,882 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep4 淋巴系統.mp3
+2025-09-29 23:11:16,882 - INFO - Audio Duration: 0 hours, 14 minutes
+2025-09-29 23:11:16,882 - INFO - Using chunking: 3 chunks of 300.0s with 5.0s overlap
+2025-09-29 23:11:17,387 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 23:11:17,387 - INFO - Start Time: 2025-09-29 23:11:17
+2025-09-29 23:11:17,387 - INFO - Processing 3 chunks with MLX-Whisper
+2025-09-29 23:11:17,387 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 23:11:17,387 - INFO - Processing chunk 1/3: 0.0s - 300.0s
+2025-09-29 23:11:39,414 - INFO - Chunk 1 completed. Preview: 今天会讲一个比较复杂的系统称之为Limithetic System中文叫做Limba系统Limba系统是第二个系统我们刚才在之前的集数也讲过关于心血管循环系统心血管循环系统是有心脏的心脏会经过动物将血...
+2025-09-29 23:11:39,414 - INFO - Processing chunk 2/3: 295.0s - 595.0s
+2025-09-29 23:11:53,826 - INFO - Chunk 2 completed. Preview: 高压力之下将液体包括水份迫出血管外面当然血压慢慢下降至零零的情况下没有任何流动率因为压力是一样,所以叫做Net Difference我们在第一集学过,在第一集里面说过Plasma ProteinPla...
+2025-09-29 23:11:53,826 - INFO - Processing chunk 3/3: 590.0s - 856.2s
+2025-09-29 23:12:07,140 - INFO - Chunk 3 completed. Preview: 哪一个专业的T细胞有四种专业透过这个FIMUSFIMUS是很特别的是第一个在胚胎发展的器官所以叫First lymphoid organs development主要在一个Education cent...
+2025-09-29 23:12:07,140 - INFO - Transcription Duration: 0 hours, 0 minutes
+2025-09-29 23:12:07,140 - INFO - Speed ratio: 17.21x real-time
+2025-09-29 23:12:07,141 - INFO - Transcription written to: outputs/解剖學和生理學摘要 II Ep4 淋巴系統_large-v3_mlx_zh_202509292311.txt
+2025-09-29 23:14:15,416 - INFO - Using HF token from file: .hf_token
+2025-09-29 23:14:15,772 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 23:14:15,772 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 23:14:15,772 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep5 免疫.mp3
+2025-09-29 23:14:15,773 - INFO - Audio Duration: 0 hours, 35 minutes
+2025-09-29 23:14:15,773 - INFO - Using chunking: 8 chunks of 300.0s with 5.0s overlap
+2025-09-29 23:14:16,242 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 23:14:16,242 - INFO - Start Time: 2025-09-29 23:14:16
+2025-09-29 23:14:16,242 - INFO - Processing 8 chunks with MLX-Whisper
+2025-09-29 23:14:16,242 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 23:14:16,242 - INFO - Processing chunk 1/8: 0.0s - 300.0s
+2025-09-29 23:14:33,121 - INFO - Chunk 1 completed. Preview: 刚才说过有adaptive之外,adaptive有另外一个字叫acquiredacquired是指后天,即是要获取回来的意思教科书会分别用这两个字眼,两者一样acquired当然有先天,inborn,...
+2025-09-29 23:14:33,121 - INFO - Processing chunk 2/8: 295.0s - 595.0s
+2025-09-29 23:14:47,763 - INFO - Chunk 2 completed. Preview: 耳口鼻,外观,我们叫做 phenotype而 indexed immunity 就等于我们的 phenotype他们可以由爸爸妈妈继承下来但是上一代的智慧,他们所有的经历就不能够传给我们了正如这个 a...
+2025-09-29 23:14:47,763 - INFO - Processing chunk 3/8: 590.0s - 890.0s
+2025-09-29 23:15:03,206 - INFO - Chunk 3 completed. Preview: 叫做 ascending infection 即是由下而上攻击即是叫做 urogenitaluro 是指被尿生殖系统女士们较容易感染原因有两个第一个是因为 urethra 的尿道长度比较短所以有些人可...
+2025-09-29 23:15:03,206 - INFO - Processing chunk 4/8: 885.0s - 1185.0s
+2025-09-29 23:15:19,197 - INFO - Chunk 4 completed. Preview: 专业的我们通常会说是 leukocytes 简称 WBC如何分类呢?通常是靠显微镜用一些染色将细胞上色发现细胞表面有很多火粒granules 即是一粒粒的东西,可以发生一粒的东西有些没有,很干净的,很...
+2025-09-29 23:15:19,197 - INFO - Processing chunk 5/8: 1180.0s - 1480.0s
+2025-09-29 23:15:34,764 - INFO - Chunk 5 completed. Preview: 就是把毒素的气息吸收以及供应营养物去受破坏的地方以保护和治疗另外由于血管壁的扩散所以血液流动会增加除此之外会触动痛苦接触痛苦接触会引致痛感除此之外有些叫做Cytokines的物质有些白血球会释放一些因...
+2025-09-29 23:15:34,764 - INFO - Processing chunk 6/8: 1475.0s - 1775.0s
+2025-09-29 23:15:55,708 - INFO - Chunk 6 completed. Preview: 除了红血球,因为红血球没有11核所以红血球是不能够产生MHC1 molecule当正常情况下,我们的nucleus就会透过RH2O2就产生了MHC1 molecule这个就类似我们的身份证而这种是人类...
+2025-09-29 23:15:55,708 - INFO - Processing chunk 7/8: 1770.0s - 2070.0s
+2025-09-29 23:16:13,232 - INFO - Chunk 7 completed. Preview: Plasma Cell 这次就不会产生 IgM 了, 它会产生 IgG 。为什么呢?IgG 在整个免疫系统里面的 Antibody 是最重要的。第一,它能够穿过一些 Blood Blame Barri...
+2025-09-29 23:16:13,232 - INFO - Processing chunk 8/8: 2065.0s - 2120.0s
+2025-09-29 23:16:15,951 - INFO - Chunk 8 completed. Preview: 就很惨了,攻击自己不会发生的所以它可以欢迎所有血型的人去到身体里面包括AB+,去到O型血的人AB+,留意minus的人可以捐血给plus的人但如果是正型血就不能捐给负型血的人所以AB+,叫做Unive...
+2025-09-29 23:16:15,952 - INFO - Transcription Duration: 0 hours, 1 minutes
+2025-09-29 23:16:15,952 - INFO - Speed ratio: 17.71x real-time
+2025-09-29 23:16:15,952 - INFO - Transcription written to: outputs/解剖學和生理學摘要 II Ep5 免疫_large-v3_mlx_zh_202509292314.txt
+2025-09-29 23:17:30,884 - INFO - Using HF token from file: .hf_token
+2025-09-29 23:17:31,236 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 23:17:31,236 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 23:17:31,236 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep6 肺部與氣體交換.mp3
+2025-09-29 23:17:31,237 - INFO - Audio Duration: 0 hours, 18 minutes
+2025-09-29 23:17:31,237 - INFO - Using chunking: 4 chunks of 300.0s with 5.0s overlap
+2025-09-29 23:17:31,734 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 23:17:31,734 - INFO - Start Time: 2025-09-29 23:17:31
+2025-09-29 23:17:31,734 - INFO - Processing 4 chunks with MLX-Whisper
+2025-09-29 23:17:31,734 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 23:17:31,734 - INFO - Processing chunk 1/4: 0.0s - 300.0s
+2025-09-29 23:17:47,732 - INFO - Chunk 1 completed. Preview: 呼吸道分为上呼吸道 和下呼吸道空气经鼻腔 会减速空气会湿润 温度会上升主要有三样空气减速是因为可以通过鼻毛 filter 空气第二是空气有机会攀升温度减少热第三是水分上端有臭角的受体空气粒子里面的化物...
+2025-09-29 23:17:47,732 - INFO - Processing chunk 2/4: 295.0s - 595.0s
+2025-09-29 23:18:03,345 - INFO - Chunk 2 completed. Preview: 去到这个 terminal bronchus从结构上就会看到分别主要就是这个肿毛,表皮层,平滑肌慢慢变窄去到这个 aviola,平滑肌层是不见了去到这里结构上就变成 respiratory zone整...
+2025-09-29 23:18:03,345 - INFO - Processing chunk 3/4: 590.0s - 890.0s
+2025-09-29 23:18:17,191 - INFO - Chunk 3 completed. Preview: 就是Delta P因为每个大气是Total Air而氧气占了一部分,所以叫Partial Pressure另外关键的位置,两个很关键的Figure就是Distance有些人有肺炎,肺积水很危险的地方是...
+2025-09-29 23:18:17,191 - INFO - Processing chunk 4/4: 885.0s - 1096.6s
+2025-09-29 23:18:27,196 - INFO - Chunk 4 completed. Preview: 由正到负,由肺部呼出身体外面最后脊椎就会被压缩呼吸量,Lung volume可以透过呼吸机,Spirometer去量度出来主要有四个数据第一个叫肺潮量,Tidal volume肺潮量是什么?是正指的时...
+2025-09-29 23:18:27,197 - INFO - Transcription Duration: 0 hours, 0 minutes
+2025-09-29 23:18:27,197 - INFO - Speed ratio: 19.77x real-time
+2025-09-29 23:18:27,197 - INFO - Transcription written to: outputs/解剖學和生理學摘要 II Ep6 肺部與氣體交換_large-v3_mlx_zh_202509292317.txt
+2025-09-29 23:19:30,368 - INFO - Using HF token from file: .hf_token
+2025-09-29 23:19:30,702 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 23:19:30,702 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 23:19:30,703 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep7 氣體運輸.mp3
+2025-09-29 23:19:30,704 - INFO - Audio Duration: 0 hours, 10 minutes
+2025-09-29 23:19:30,704 - INFO - Using chunking: 3 chunks of 300.0s with 5.0s overlap
+2025-09-29 23:19:31,175 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 23:19:31,175 - INFO - Start Time: 2025-09-29 23:19:31
+2025-09-29 23:19:31,175 - INFO - Processing 3 chunks with MLX-Whisper
+2025-09-29 23:19:31,175 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 23:19:31,175 - INFO - Processing chunk 1/3: 0.0s - 300.0s
+2025-09-29 23:19:47,264 - INFO - Chunk 1 completed. Preview: 大气里面大概是21%氧气或者用 partial pressure 是160因为沿途被割去到 aviola 空气都会变成一dead space所以实际上是肺胞的 partial pressure 是10...
+2025-09-29 23:19:47,264 - INFO - Processing chunk 2/3: 295.0s - 595.0s
+2025-09-29 23:20:13,212 - INFO - Chunk 2 completed. Preview: 当如果那个curve去到shift to the right在相同40个min mercury之下saturation就会下跌因为偏右手边换句话说它会降低了整个氧气的饱和度就是说不是那些氧气bind ...
+2025-09-29 23:20:13,212 - INFO - Processing chunk 3/3: 590.0s - 656.4s
+2025-09-29 23:20:16,333 - INFO - Chunk 3 completed. Preview: 大家可以用一个比喻,Modular是operator,Pons是manager在Modular分为两个区域,第一个是Dorsal,前后的后一位置用来控制一般的Ans,即是Regular,一个常规性的呼...
+2025-09-29 23:20:16,334 - INFO - Transcription Duration: 0 hours, 0 minutes
+2025-09-29 23:20:16,334 - INFO - Speed ratio: 14.53x real-time
+2025-09-29 23:20:16,334 - INFO - Transcription written to: outputs/解剖學和生理學摘要 II Ep7 氣體運輸_large-v3_mlx_zh_202509292319.txt
+2025-09-29 23:24:12,597 - INFO - Using HF token from file: .hf_token
+2025-09-29 23:24:12,927 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-29 23:24:12,928 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-29 23:24:12,928 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep8 腎和排泄系統.mp3
+2025-09-29 23:24:12,929 - INFO - Audio Duration: 0 hours, 20 minutes
+2025-09-29 23:24:12,930 - INFO - Using chunking: 5 chunks of 300.0s with 5.0s overlap
+2025-09-29 23:24:13,394 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-29 23:24:13,394 - INFO - Start Time: 2025-09-29 23:24:13
+2025-09-29 23:24:13,394 - INFO - Processing 5 chunks with MLX-Whisper
+2025-09-29 23:24:13,394 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-29 23:24:13,394 - INFO - Processing chunk 1/5: 0.0s - 300.0s
+2025-09-29 23:24:29,037 - INFO - Chunk 1 completed. Preview: 今天讲关于排泄系统为什么选择UniSystem呢?与Urein有关Urein中文叫做尿液整个系统是产生尿液和排走尿液主要整个系统有四个功能第一个最重要的是Kidney正常人有一对肾脏肾脏负责将血液内的...
+2025-09-29 23:24:29,037 - INFO - Processing chunk 2/5: 295.0s - 595.0s
+2025-09-29 23:24:44,583 - INFO - Chunk 2 completed. Preview: 叫做Rheumatitis 腎小球和Tubular 一些弯曲的小管腎源有两种占大部分85%称之为cortical nephroncortical 指外层它是在腎座内分为两层第一层称之为cortex或者...
+2025-09-29 23:24:44,584 - INFO - Processing chunk 3/5: 590.0s - 890.0s
+2025-09-29 23:25:10,447 - INFO - Chunk 3 completed. Preview: 再回到这个 tubular 里面而水份就会经过了 osmosis 的原理有一个水的 channel 也会 reabsorb 回到血液里面而这个 reabsorption 这个 local 即是血管GF...
+2025-09-29 23:25:10,447 - INFO - Processing chunk 4/5: 885.0s - 1185.0s
+2025-09-29 23:25:27,967 - INFO - Chunk 4 completed. Preview: 那类的serious fluid另外有一些叫exocline外分泌线例如sweat cleanser汗线digestive cleanser消化系统里面的线体都会产生那些fluid的地方这个整合统称为...
+2025-09-29 23:25:27,967 - INFO - Processing chunk 5/5: 1180.0s - 1225.9s
+2025-09-29 23:25:30,369 - INFO - Chunk 5 completed. Preview: 第一种叫 Respiratory Acidosis 由于呼吸问题一是呼吸不进去 或者呼吸道收窄了或者大量氧化碳积聚也好 不能排走会引致 Respiratory Acidosis另一种就是 Metabo...
+2025-09-29 23:25:30,370 - INFO - Transcription Duration: 0 hours, 1 minutes
+2025-09-29 23:25:30,370 - INFO - Speed ratio: 15.93x real-time
+2025-09-29 23:25:30,371 - INFO - Transcription written to: outputs/解剖學和生理學摘要 II Ep8 腎和排泄系統_large-v3_mlx_zh_202509292324.txt
