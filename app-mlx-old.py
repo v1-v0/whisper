@@ -29,7 +29,7 @@ def load_config(config_path: str = 'config.ini') -> configparser.ConfigParser:
             'output_dir': 'outputs',
             'use_mlx': 'true',
             'force_cpu': 'false',
-            'hf_token_file': '. org',
+            'hf_token_file': '.hf_token',
             'language': 'en',  # Set to English for English transcription
             'task': 'transcribe',  # Use translate to convert Chinese to English
             # Chunking options
@@ -71,23 +71,6 @@ def merge_chunk_results(chunk_results: List[Optional[Dict[str, Any]]]) -> Dict[s
     """Merge results from multiple audio chunks into a single result."""
     if not chunk_results:
         return {"text": "", "segments": [], "language": "en"}
-    
-    # Filter out None results
-    valid_results = [r for r in chunk_results if r is not None]
-    if not valid_results:
-        return {"text": "", "segments": [], "language": "en"}
-    
-    merged_result = {
-        "text": "",
-        "segments": [],
-        "language": valid_results[0].get("language", "en")
-    }
-    
-    text_parts = []
-    all_segments = []
-    
-    for i, chunk_result in enumerate(valid_results):
-        chunk_text = chunk_result.get("text", "").strip()
     
     # Filter out None results
     valid_results = [r for r in chunk_results if r is not None]
@@ -305,7 +288,6 @@ def load_audio_chunk(audio_file: str, start_time: float, end_time: float) -> Opt
             '-y', temp_path
         ]
         
-        
         result = subprocess.run(cmd, capture_output=True, text=True)
         if result.returncode == 0:
             return temp_path
@@ -352,13 +334,9 @@ def transcribe_audio_mlx_chunked(model_name: str, audio_file: str, chunks: List[
                 }
                 
                 # For MLX-Whisper, don't set language when task is 'translate'
-                # Use 'zh-TW' for Chinese transcription if detected or specified
-                effective_language = language
-                if task == 'transcribe':
-                    if language == 'zh' or (language is None and mlx_whisper.transcribe(chunk_file, path_or_hf_repo=mlx_model_name, task='transcribe').get('language') in ['zh', 'zh-CN', 'zh-TW']):
-                        effective_language = 'zh-TW'
-                    if effective_language:
-                        transcribe_params['language'] = effective_language
+                # as it will automatically translate to English
+                if task == 'transcribe' and language:
+                    transcribe_params['language'] = language
                 
                 chunk_result = mlx_whisper.transcribe(**transcribe_params)
                 chunk_results.append(chunk_result)
@@ -404,14 +382,9 @@ def transcribe_audio_mlx(model_name: str, audio_file: str, language: Optional[st
         }
         
         # For MLX-Whisper, don't set language when task is 'translate'
-        # Use 'zh-TW' for Chinese transcription if detected or specified
-        effective_language = language
-        if task == 'transcribe':
-            if language == 'zh' or (language is None and mlx_whisper.transcribe(audio_file, path_or_hf_repo=mlx_model_name, task='transcribe').get('language') in ['zh', 'zh-CN', 'zh-TW']):
-                effective_language = 'zh-TW'
-            if effective_language:
-                transcribe_params['language'] = effective_language
-                logger.info(f"Using specified language: {effective_language}")
+        if task == 'transcribe' and language:
+            transcribe_params['language'] = language
+            logger.info(f"Using specified language: {language}")
         elif task == 'translate':
             logger.info("Translating to English (language parameter not needed)")
         
@@ -440,14 +413,9 @@ def transcribe_audio_standard(model: Any, audio_file: str, language: Optional[st
         }
         
         # For standard Whisper, don't set language when task is 'translate'
-        # Use 'zh-TW' for Chinese transcription if detected or specified
-        effective_language = language
-        if task == 'transcribe':
-            if language == 'zh' or (language is None and model.transcribe(audio_file, task='transcribe').get('language') in ['zh', 'zh-CN', 'zh-TW']):
-                effective_language = 'zh-TW'
-            if effective_language:
-                transcribe_params['language'] = effective_language
-                logger.info(f"Using specified language: {effective_language}")
+        if task == 'transcribe' and language:
+            transcribe_params['language'] = language
+            logger.info(f"Using specified language: {language}")
         elif task == 'translate':
             logger.info("Translating to English (language parameter not needed)")
         
@@ -475,17 +443,15 @@ def get_optimal_device(force_cpu: bool = False) -> str:
     
     return "cpu"
 
-def save_transcription(result: Dict[str, Any], audio_file: str, model_name: str, start_time: float, output_dir: str, backend: str, task: str, language: Optional[str] = None, max_line_length: int = 1000) -> None:
+def save_transcription(result: Dict[str, Any], audio_file: str, model_name: str, start_time: float, output_dir: str, backend: str, language: Optional[str] = None, max_line_length: int = 1000) -> None:
     """Save transcription to a file with proper formatting."""
     try:
         model_name_for_file = model_name.replace('.', '_').replace('/', '_')
         filename = Path(audio_file).stem
         start_dt = datetime.fromtimestamp(start_time)
         
-        # Use 'en' for translated content, 'zh-TW' for Chinese transcription
-        final_language = 'en' if task == 'translate' else result.get('language', language or 'en')
-        if final_language in ['zh', 'zh-CN', 'zh-TW']:
-            final_language = 'zh-TW'
+        # Use 'en' for translated content
+        final_language = result.get('language', language or 'en')
         lang_suffix = f"_{final_language}"
         output_filename = f"{filename}_{model_name_for_file}_{backend}{lang_suffix}_{start_dt.strftime('%Y%m%d%H%M')}.txt"
         output_path = Path(output_dir) / output_filename
@@ -542,14 +508,14 @@ def main() -> None:
         if task == 'translate':
             logger.info("Task: translate (converts any language to English)")
         else:
-            logger.info(f"Task: transcribe (maintains original language or specified language: {specified_language or 'auto-detect'})")
+            logger.info(f"Task: transcribe (maintains original language or specified language: {specified_language})")
 
         # Audio file handling
         source_dir = 'source'
         audio_file: Optional[str] = None
 
         if os.path.isdir(source_dir):
-            # Onlyល Only select mp3 files
+            # Only select mp3 files
             files = [f for f in os.listdir(source_dir)
                      if os.path.isfile(os.path.join(source_dir, f)) and f.lower().endswith('.mp3')]
             if len(files) == 1:
@@ -618,20 +584,20 @@ def main() -> None:
         # Start transcription
         start_time = time.time()
         start_dt = datetime.fromtimestamp(start_time)
-        logger.info(f"Start Time: {start_dt.strftime('%Y-%m-%d %H:%M:%S')} Emmy")
+        logger.info(f"Start Time: {start_dt.strftime('%Y-%m-%d %H:%M:%S')}")
 
         result = None
         if use_mlx_backend:
             if use_chunking and chunks is not None:
                 result = transcribe_audio_mlx_chunked(
                     whisper_model, audio_file, chunks, 
-                    language=specified_language if task == 'transcribe' else None, 
+                    language=specified_language if task == 'transcribe' and specified_language else None, 
                     task=task, verbose=verbose_output
                 )
             else:
                 result = transcribe_audio_mlx(
                     whisper_model, audio_file, 
-                    language=specified_language if task == 'transcribe' else None, 
+                    language=specified_language if task == 'transcribe' and specified_language else None, 
                     task=task, verbose=verbose_output
                 )
         else:
@@ -639,7 +605,7 @@ def main() -> None:
             use_fp16 = device in ["cuda", "mps"] and not force_cpu
             result = transcribe_audio_standard(
                 model, audio_file, 
-                language=specified_language if task == 'transcribe' else None, 
+                language=specified_language if task == 'transcribe' and specified_language else None, 
                 task=task, use_fp16=use_fp16, verbose=verbose_output
             )
 
@@ -657,10 +623,8 @@ def main() -> None:
         logger.info(f"Speed ratio: {speed_ratio:.2f}x real-time")
 
         # Save transcription
-        final_language = 'en' if task == 'translate' else result.get('language', specified_language or 'en')
-        if final_language in ['zh', 'zh-CN', 'zh-TW']:
-            final_language = 'zh-TW'
-        save_transcription(result, audio_file, whisper_model, start_time, output_dir, backend_name, task, final_language, max_segment_length)
+        final_language = 'en' if task == 'translate' else result.get('language', specified_language)
+        save_transcription(result, audio_file, whisper_model, start_time, output_dir, backend_name, final_language, max_segment_length)
 
     except KeyboardInterrupt:
         logger.info("Transcription interrupted by user")

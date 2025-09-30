@@ -3000,3 +3000,151 @@ Invalid username or password.
 2025-09-29 23:25:30,370 - INFO - Transcription Duration: 0 hours, 1 minutes
 2025-09-29 23:25:30,370 - INFO - Speed ratio: 15.93x real-time
 2025-09-29 23:25:30,371 - INFO - Transcription written to: outputs/解剖學和生理學摘要 II Ep8 腎和排泄系統_large-v3_mlx_zh_202509292324.txt
+2025-09-30 01:53:04,983 - INFO - Using HF token from file: .hf_token
+2025-09-30 01:53:05,418 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-30 01:53:05,418 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-30 01:53:05,419 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep5 免疫.mp3
+2025-09-30 01:53:05,422 - INFO - Audio Duration: 0 hours, 35 minutes
+2025-09-30 01:53:05,422 - INFO - Using chunking: 8 chunks of 300.0s with 5.0s overlap
+2025-09-30 01:53:06,749 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-30 01:53:06,749 - INFO - Start Time: 2025-09-30 01:53:06
+2025-09-30 01:53:06,749 - INFO - Processing 8 chunks with MLX-Whisper
+2025-09-30 01:53:06,749 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-30 01:53:06,749 - INFO - Processing chunk 1/8: 0.0s - 300.0s
+2025-09-30 01:53:23,619 - INFO - Chunk 1 completed. Preview: 刚才说过有adaptive之外,adaptive有另外一个字叫acquiredacquired是指后天,即是要获取回来的意思教科书会分别用这两个字眼,两者一样acquired当然有先天,inborn,...
+2025-09-30 01:53:23,619 - INFO - Processing chunk 2/8: 295.0s - 595.0s
+2025-09-30 01:53:37,737 - INFO - Chunk 2 completed. Preview: 耳口鼻,外观,我们叫做 phenotype而 indexed immunity 就等于我们的 phenotype他们可以由爸爸妈妈继承下来但是上一代的智慧,他们所有的经历就不能够传给我们了正如这个 a...
+2025-09-30 01:53:37,737 - INFO - Processing chunk 3/8: 590.0s - 890.0s
+2025-09-30 01:53:52,151 - INFO - Chunk 3 completed. Preview: 叫做 ascending infection 即是由下而上攻击即是叫做 urogenitaluro 是指被尿生殖系统女士们较容易感染原因有两个第一个是因为 urethra 的尿道长度比较短所以有些人可...
+2025-09-30 01:53:52,152 - INFO - Processing chunk 4/8: 885.0s - 1185.0s
+2025-09-30 01:54:07,375 - INFO - Chunk 4 completed. Preview: 专业的我们通常会说是 leukocytes 简称 WBC如何分类呢?通常是靠显微镜用一些染色将细胞上色发现细胞表面有很多火粒granules 即是一粒粒的东西,可以发生一粒的东西有些没有,很干净的,很...
+2025-09-30 01:54:07,375 - INFO - Processing chunk 5/8: 1180.0s - 1480.0s
+2025-09-30 01:54:22,093 - INFO - Chunk 5 completed. Preview: 就是把毒素的气息吸收以及供应营养物去受破坏的地方以保护和治疗另外由于血管壁的扩散所以血液流动会增加除此之外会触动痛苦接触痛苦接触会引致痛感除此之外有些叫做Cytokines的物质有些白血球会释放一些因...
+2025-09-30 01:54:22,094 - INFO - Processing chunk 6/8: 1475.0s - 1775.0s
+2025-09-30 01:54:41,081 - INFO - Chunk 6 completed. Preview: 除了红血球,因为红血球没有11核所以红血球是不能够产生MHC1 molecule当正常情况下,我们的nucleus就会透过RH2O2就产生了MHC1 molecule这个就类似我们的身份证而这种是人类...
+2025-09-30 01:54:41,081 - INFO - Processing chunk 7/8: 1770.0s - 2070.0s
+2025-09-30 01:54:57,756 - INFO - Chunk 7 completed. Preview: Plasma Cell 这次就不会产生 IgM 了, 它会产生 IgG 。为什么呢?IgG 在整个免疫系统里面的 Antibody 是最重要的。第一,它能够穿过一些 Blood Blame Barri...
+2025-09-30 01:54:57,756 - INFO - Processing chunk 8/8: 2065.0s - 2120.0s
+2025-09-30 01:55:00,289 - INFO - Chunk 8 completed. Preview: 就很惨了,攻击自己不会发生的所以它可以欢迎所有血型的人去到身体里面包括AB+,去到O型血的人AB+,留意minus的人可以捐血给plus的人但如果是正型血就不能捐给负型血的人所以AB+,叫做Unive...
+2025-09-30 01:55:00,290 - INFO - Transcription Duration: 0 hours, 1 minutes
+2025-09-30 01:55:00,290 - INFO - Speed ratio: 18.67x real-time
+2025-09-30 01:55:00,291 - INFO - Transcription written to: outputs/解剖學和生理學摘要 II Ep5 免疫_large-v3_mlx_zh_202509300153.txt
+2025-09-30 23:37:10,438 - INFO - Using HF token from file: .hf_token
+2025-09-30 23:37:10,806 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-30 23:37:10,806 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-30 23:37:10,807 - INFO - Using MP3 audio file from 'source': source/Organoid Technologies in Research.mp3
+2025-09-30 23:37:10,809 - INFO - Audio Duration: 0 hours, 3 minutes
+2025-09-30 23:37:10,810 - INFO - Processing entire audio file at once
+2025-09-30 23:37:12,115 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-30 23:37:12,116 - INFO - Start Time: 2025-09-30 23:37:12
+2025-09-30 23:37:12,116 - INFO - Using MLX-Whisper for transcription with model: large-v3
+2025-09-30 23:37:12,116 - INFO - Using MLX model: mlx-community/whisper-large-v3-mlx
+2025-09-30 23:37:12,116 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-30 23:37:21,558 - INFO - Detected/Final language: en
+2025-09-30 23:37:21,558 - INFO - Transcription Duration: 0 hours, 0 minutes
+2025-09-30 23:37:21,558 - INFO - Speed ratio: 20.66x real-time
+2025-09-30 23:37:21,559 - INFO - Transcription written to: outputs/Organoid Technologies in Research_large-v3_mlx_en_202509302337.txt
+2025-09-30 23:44:56,227 - INFO - Using HF token from file: .hf_token
+2025-09-30 23:44:56,556 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-30 23:44:56,556 - INFO - Task: transcribe (maintains original language or specified language: )
+2025-09-30 23:44:56,557 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep 1. 血液（A&P Synopsis II BLOOD) [2wnRwcWml_s].mp3
+2025-09-30 23:44:56,558 - INFO - Audio Duration: 0 hours, 35 minutes
+2025-09-30 23:44:56,558 - INFO - Using chunking: 8 chunks of 300.0s with 5.0s overlap
+2025-09-30 23:44:57,002 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-30 23:44:57,002 - INFO - Start Time: 2025-09-30 23:44:57
+2025-09-30 23:44:57,002 - INFO - Processing 8 chunks with MLX-Whisper
+2025-09-30 23:44:57,002 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-30 23:44:57,002 - INFO - Processing chunk 1/8: 0.0s - 300.0s
+2025-09-30 23:45:12,126 - INFO - Chunk 1 completed. Preview: 人体大概有5-6公升的血液男女的差异不是很大上一个学期我们有讨论过关于Tissue组织血液是属于结体组织英文叫Connective Tissue由于血液是一个液体所以叫Fluid Connective...
+2025-09-30 23:45:12,126 - INFO - Processing chunk 2/8: 295.0s - 595.0s
+2025-09-30 23:45:25,945 - INFO - Chunk 2 completed. Preview: 水份有差异另外稳定一些的是Plasma Protein即是血液中有蛋白质而蛋白质有专有的功能先说一下,第一个是Albumin血球蛋白也是身体血液中最细的蛋白主要在哪里产生呢?在肝脏主要控制身体血液的水...
+2025-09-30 23:45:25,945 - INFO - Processing chunk 3/8: 590.0s - 890.0s
+2025-09-30 23:45:45,605 - INFO - Chunk 3 completed. Preview: 把血液带回到心脏所以心脏里面有很高的压力就是说我们的上压120mH是指一滴hydro static pressurehydro是指水就是水压就是用水压的方法将液体逼出去血管里面去到inter-situ...
+2025-09-30 23:45:45,605 - INFO - Processing chunk 4/8: 885.0s - 1185.0s
+2025-09-30 23:45:59,860 - INFO - Chunk 4 completed. Preview: 而小部分在Spleen和Liver,但基本上所有的制造血的地方都会转移到Bone marrow直到出生后,到成年人就是Bone marrow部分主要多的地方,Red Bone marrow主要是Lon...
+2025-09-30 23:45:59,860 - INFO - Processing chunk 5/8: 1180.0s - 1480.0s
+2025-09-30 23:46:14,876 - INFO - Chunk 5 completed. Preview: 当是一个的士,一的士有四座位即是说有四座位的的士主要是运氧气留意氧气是O2氧的氧氧氮所组成的每一个的氧气单位可以载到一个氧气,两个氧气,三和四的所以一个Hemoglobin可以带着四个O2氧氧氮或者八...
+2025-09-30 23:46:14,876 - INFO - Processing chunk 6/8: 1475.0s - 1775.0s
+2025-09-30 23:46:30,061 - INFO - Chunk 6 completed. Preview: Bone marrow 会产生产生后会在血液里面 circulate循环大概120天120天叫aged就是要经过Spleen 皮状皮状里面有一些白血球叫macrophage 巨细细胞phage 指en...
+2025-09-30 23:46:30,061 - INFO - Processing chunk 7/8: 1770.0s - 2070.0s
+2025-09-30 23:46:51,314 - INFO - Chunk 7 completed. Preview: 另一种物质叫plasminplasmin是将它溶解的即将这个Flybin溶解出来因为血管有一个很重要的问题如果血管内积聚有时会脱出来,会塞血管所以plasmin很重要将血管溶解令到不会塞血管其他塞血管...
+2025-09-30 23:46:51,314 - INFO - Processing chunk 8/8: 2065.0s - 2105.8s
+2025-09-30 23:46:53,546 - INFO - Chunk 8 completed. Preview: 抗凝血是前线药物即是紧急的状态另外一种叫做VolferinVolferin是维他命K Antagonist主要是抑制维他命K维他命K维他命K的K字是德文就是抗凝血但由于德国人会发现C就不用C用K所以维...
+2025-09-30 23:46:53,547 - INFO - Transcription Duration: 0 hours, 1 minutes
+2025-09-30 23:46:53,547 - INFO - Speed ratio: 18.07x real-time
+2025-09-30 23:46:53,547 - INFO - Transcription written to: outputs/解剖學和生理學摘要 II Ep 1. 血液（A&P Synopsis II BLOOD) [2wnRwcWml_s]_large-v3_mlx_zh_202509302344.txt
+2025-09-30 23:52:02,489 - INFO - Using HF token from file: .hf_token
+2025-09-30 23:52:02,805 - INFO - Successfully authenticated with Hugging Face Hub
+2025-09-30 23:52:02,805 - INFO - Task: transcribe (maintains original language or specified language: auto-detect)
+2025-09-30 23:52:02,805 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep 1. 血液（A&P Synopsis II BLOOD) [2wnRwcWml_s].mp3
+2025-09-30 23:52:02,805 - INFO - Audio Duration: 0 hours, 35 minutes
+2025-09-30 23:52:02,805 - INFO - Using chunking: 8 chunks of 300.0s with 5.0s overlap
+2025-09-30 23:52:03,291 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-09-30 23:52:03,291 - INFO - Start Time: 2025-09-30 23:52:03 Emmy
+2025-09-30 23:52:03,291 - INFO - Processing 8 chunks with MLX-Whisper
+2025-09-30 23:52:03,291 - INFO - Task: transcribe, Target language: auto-detect
+2025-09-30 23:52:03,291 - INFO - Processing chunk 1/8: 0.0s - 300.0s
+2025-09-30 23:52:18,744 - INFO - Chunk 1 completed. Preview: 人体大概有5-6公升的血液男女的差异不是很大上一个学期我们有讨论过关于Tissue组织血液是属于结体组织英文叫Connective Tissue由于血液是一个液体所以叫Fluid Connective...
+2025-09-30 23:52:18,744 - INFO - Processing chunk 2/8: 295.0s - 595.0s
+2025-09-30 23:52:32,832 - INFO - Chunk 2 completed. Preview: 水份有差异另外稳定一些的是Plasma Protein即是血液中有蛋白质而蛋白质有专有的功能先说一下,第一个是Albumin血球蛋白也是身体血液中最细的蛋白主要在哪里产生呢?在肝脏主要控制身体血液的水...
+2025-09-30 23:52:32,832 - INFO - Processing chunk 3/8: 590.0s - 890.0s
+2025-09-30 23:52:55,940 - INFO - Chunk 3 completed. Preview: 把血液带回到心脏所以心脏里面有很高的压力就是说我们的上压120mH是指一滴hydro static pressurehydro是指水就是水压就是用水压的方法将液体逼出去血管里面去到inter-situ...
+2025-09-30 23:52:55,940 - INFO - Processing chunk 4/8: 885.0s - 1185.0s
+2025-09-30 23:53:10,027 - INFO - Chunk 4 completed. Preview: 而小部分在Spleen和Liver,但基本上所有的制造血的地方都会转移到Bone marrow直到出生后,到成年人就是Bone marrow部分主要多的地方,Red Bone marrow主要是Lon...
+2025-09-30 23:53:10,027 - INFO - Processing chunk 5/8: 1180.0s - 1480.0s
+2025-09-30 23:53:25,066 - INFO - Chunk 5 completed. Preview: 当是一个的士,一的士有四座位即是说有四座位的的士主要是运氧气留意氧气是O2氧的氧氧氮所组成的每一个的氧气单位可以载到一个氧气,两个氧气,三和四的所以一个Hemoglobin可以带着四个O2氧氧氮或者八...
+2025-09-30 23:53:25,066 - INFO - Processing chunk 6/8: 1475.0s - 1775.0s
+2025-09-30 23:53:40,384 - INFO - Chunk 6 completed. Preview: Bone marrow 会产生产生后会在血液里面 circulate循环大概120天120天叫aged就是要经过Spleen 皮状皮状里面有一些白血球叫macrophage 巨细细胞phage 指en...
+2025-09-30 23:53:40,384 - INFO - Processing chunk 7/8: 1770.0s - 2070.0s
+2025-09-30 23:54:02,149 - INFO - Chunk 7 completed. Preview: 另一种物质叫plasminplasmin是将它溶解的即将这个Flybin溶解出来因为血管有一个很重要的问题如果血管内积聚有时会脱出来,会塞血管所以plasmin很重要将血管溶解令到不会塞血管其他塞血管...
+2025-09-30 23:54:02,149 - INFO - Processing chunk 8/8: 2065.0s - 2105.8s
+2025-09-30 23:54:04,362 - INFO - Chunk 8 completed. Preview: 抗凝血是前线药物即是紧急的状态另外一种叫做VolferinVolferin是维他命K Antagonist主要是抑制维他命K维他命K维他命K的K字是德文就是抗凝血但由于德国人会发现C就不用C用K所以维...
+2025-09-30 23:54:04,363 - INFO - Transcription Duration: 0 hours, 2 minutes
+2025-09-30 23:54:04,363 - INFO - Speed ratio: 17.39x real-time
+2025-09-30 23:54:04,363 - ERROR - Error saving transcription: name 'task' is not defined
+2025-10-01 01:49:11,391 - INFO - Using HF token from file: .hf_token
+2025-10-01 01:49:11,737 - INFO - Successfully authenticated with Hugging Face Hub
+2025-10-01 01:49:11,738 - INFO - Task: transcribe (maintains original language or specified language: auto-detect)
+2025-10-01 01:49:11,738 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep 2. 心臟 (A&P Synopsis II The heart).mp3
+2025-10-01 01:49:11,739 - INFO - Audio Duration: 0 hours, 20 minutes
+2025-10-01 01:49:11,739 - INFO - Using chunking: 5 chunks of 300.0s with 5.0s overlap
+2025-10-01 01:49:12,197 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-10-01 01:49:12,197 - INFO - Start Time: 2025-10-01 01:49:12 Emmy
+2025-10-01 01:49:12,197 - INFO - Processing 5 chunks with MLX-Whisper
+2025-10-01 01:49:12,197 - INFO - Task: transcribe, Target language: auto-detect
+2025-10-01 01:49:12,197 - INFO - Processing chunk 1/5: 0.0s - 300.0s
+2025-10-01 01:49:28,864 - INFO - Chunk 1 completed. Preview: 这一集会讲心血管循环系统先解释一下字,首先讲一下CardioCardio是心脏,有时大家去医院或是医疗器械都会有些字叫Cardio另外第二个就是Vascular,就是血管没想到大家看到这个字都知道了心...
+2025-10-01 01:49:28,864 - INFO - Processing chunk 2/5: 295.0s - 595.0s
+2025-10-01 01:49:44,260 - INFO - Chunk 2 completed. Preview: 反组成的Tricuspid Valve血液冲过这个Valve之后就会去到第二个目的地就是右肺右肾室RV肾室将血液冲过去Pulmonary Valve肺的反就会经过肺动脉左肺和右肺Pulmonary A...
+2025-10-01 01:49:44,260 - INFO - Processing chunk 3/5: 590.0s - 890.0s
+2025-10-01 01:49:58,732 - INFO - Chunk 3 completed. Preview: 跳跃的一些规律有些病人叫做心律失调所以叫Arithmias这个心脏跳的时候是否有节奏还是会时快时慢呢都会由这个ECG所可以看到第二个每一个的Cycle就是每一次跳跃有一个Cycle从这个Cycle的数...
+2025-10-01 01:49:58,732 - INFO - Processing chunk 4/5: 885.0s - 1185.0s
+2025-10-01 01:50:16,526 - INFO - Chunk 4 completed. Preview: 另外,肺部血液会回到左肺所以左肺和右肺是正在进入血液血液充满后,同步P wave电流会去到左肺由于血液压力和心脏肌肉收缩血液会逼出右边,右肺和左肺会冲开Tricuspid valve和Bicuspid...
+2025-10-01 01:50:16,527 - INFO - Processing chunk 5/5: 1180.0s - 1227.6s
+2025-10-01 01:50:18,831 - INFO - Chunk 5 completed. Preview: 微小管微小管有三种,第一种是最多最普遍叫continuous血管之间没有裂缝也不会有开放式血液不会流出身体各部分第二种叫continuous fenestration中间有些洞这个部分最多是基帘用来做...
+2025-10-01 01:50:18,832 - INFO - Transcription Duration: 0 hours, 1 minutes
+2025-10-01 01:50:18,832 - INFO - Speed ratio: 18.42x real-time
+2025-10-01 01:50:18,832 - ERROR - Error saving transcription: name 'task' is not defined
+2025-10-01 01:54:04,356 - INFO - Using HF token from file: .hf_token
+2025-10-01 01:54:04,694 - INFO - Successfully authenticated with Hugging Face Hub
+2025-10-01 01:54:04,695 - INFO - Task: transcribe (maintains original language or specified language: auto-detect)
+2025-10-01 01:54:04,695 - INFO - Using MP3 audio file from 'source': source/解剖學和生理學摘要 II Ep 2. 心臟 (A&P Synopsis II The heart).mp3
+2025-10-01 01:54:04,696 - INFO - Audio Duration: 0 hours, 20 minutes
+2025-10-01 01:54:04,696 - INFO - Using chunking: 5 chunks of 300.0s with 5.0s overlap
+2025-10-01 01:54:05,153 - INFO - Using MLX-Whisper backend with model: large-v3
+2025-10-01 01:54:05,153 - INFO - Start Time: 2025-10-01 01:54:05 Emmy
+2025-10-01 01:54:05,153 - INFO - Processing 5 chunks with MLX-Whisper
+2025-10-01 01:54:05,153 - INFO - Task: transcribe, Target language: auto-detect
+2025-10-01 01:54:05,153 - INFO - Processing chunk 1/5: 0.0s - 300.0s
+2025-10-01 01:54:21,473 - INFO - Chunk 1 completed. Preview: 这一集会讲心血管循环系统先解释一下字,首先讲一下CardioCardio是心脏,有时大家去医院或是医疗器械都会有些字叫Cardio另外第二个就是Vascular,就是血管没想到大家看到这个字都知道了心...
+2025-10-01 01:54:21,473 - INFO - Processing chunk 2/5: 295.0s - 595.0s
+2025-10-01 01:54:36,436 - INFO - Chunk 2 completed. Preview: 反组成的Tricuspid Valve血液冲过这个Valve之后就会去到第二个目的地就是右肺右肾室RV肾室将血液冲过去Pulmonary Valve肺的反就会经过肺动脉左肺和右肺Pulmonary A...
+2025-10-01 01:54:36,436 - INFO - Processing chunk 3/5: 590.0s - 890.0s
+2025-10-01 01:54:50,654 - INFO - Chunk 3 completed. Preview: 跳跃的一些规律有些病人叫做心律失调所以叫Arithmias这个心脏跳的时候是否有节奏还是会时快时慢呢都会由这个ECG所可以看到第二个每一个的Cycle就是每一次跳跃有一个Cycle从这个Cycle的数...
+2025-10-01 01:54:50,654 - INFO - Processing chunk 4/5: 885.0s - 1185.0s
+2025-10-01 01:55:05,901 - INFO - Chunk 4 completed. Preview: 另外,肺部血液会回到左肺所以左肺和右肺是正在进入血液血液充满后,同步P wave电流会去到左肺由于血液压力和心脏肌肉收缩血液会逼出右边,右肺和左肺会冲开Tricuspid valve和Bicuspid...
+2025-10-01 01:55:05,902 - INFO - Processing chunk 5/5: 1180.0s - 1227.6s
+2025-10-01 01:55:08,151 - INFO - Chunk 5 completed. Preview: 微小管微小管有三种,第一种是最多最普遍叫continuous血管之间没有裂缝也不会有开放式血液不会流出身体各部分第二种叫continuous fenestration中间有些洞这个部分最多是基帘用来做...
+2025-10-01 01:55:08,152 - INFO - Transcription Duration: 0 hours, 1 minutes
+2025-10-01 01:55:08,152 - INFO - Speed ratio: 19.49x real-time
+2025-10-01 01:55:08,153 - INFO - Transcription written to: outputs/解剖學和生理學摘要 II Ep 2. 心臟 (A&P Synopsis II The heart)_large-v3_mlx_zh-TW_202510010154.txt
