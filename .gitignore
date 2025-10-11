@@ -1,5 +1,6 @@
 /outputs/*.*
 /source/*.*
+/staging/*.*
 *.log
 *.m4a
 *.MP3
