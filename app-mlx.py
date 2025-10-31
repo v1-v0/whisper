@@ -1,3 +1,4 @@
+
 import os
 import time
 from datetime import datetime
@@ -7,6 +8,7 @@ import soundfile as sf
 import torch
 from pathlib import Path
 from typing import Optional, Tuple, Union, List, Dict, Any
+import re
 
 # Configure logging
 logging.basicConfig(
@@ -25,17 +27,17 @@ def load_config(config_path: str = 'config.ini') -> configparser.ConfigParser:
     default_config = {
         'DEFAULT': {
             'audio_file': '',
-            'whisper_model': 'large-v3',
+            'whisper_model': 'large-v3-turbo',
             'output_dir': 'outputs',
             'use_mlx': 'true',
             'force_cpu': 'false',
-            'hf_token_file': '. org',
+            'hf_token_file': '.hf_token',
             'language': 'en',  # Set to English for English transcription
             'task': 'transcribe',  # Use translate to convert Chinese to English
             # Chunking options
             'enable_chunking': 'true',
-            'chunk_length': '30',
-            'overlap_length': '5',
+            'chunk_length': '120',
+            'overlap_length': '20',
             'max_segment_length': '1000',
             'verbose_output': 'false'
         }
@@ -67,7 +69,47 @@ def chunk_audio_timestamps(audio_length: float, chunk_length: float = 30.0, over
     
     return chunks
 
-def merge_chunk_results(chunk_results: List[Optional[Dict[str, Any]]]) -> Dict[str, Any]:
+def merge_overlapping_segments(segments: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Merge overlapping segments based on timestamps."""
+    if not segments:
+        return []
+    
+    # Sort by start time
+    segments.sort(key=lambda x: x.get('start', 0))
+    
+    merged = [segments[0]]
+    for current in segments[1:]:
+        last = merged[-1]
+        if current['start'] <= last['end']:
+            # Merge if overlap
+            last['end'] = max(last['end'], current['end'])
+            last['text'] = (last.get('text', '') + ' ' + current.get('text', '')).strip()
+        else:
+            merged.append(current)
+    return merged
+
+def remove_repetitions(text: str) -> str:
+    """Remove excessive repetitions in text."""
+    # Remove long sequences of the same word (e.g., 'fifth fifth ...')
+    text = re.sub(r'\b(\w+)( \1\b){10,}', r'\1', text)
+    
+    # Remove shorter consecutive repeats, allowing up to 1 duplicate
+    words = text.split()
+    deduped = []
+    prev = ''
+    count = 0
+    for word in words:
+        if word == prev:
+            count += 1
+            if count < 2:  # Allow 1 repeat
+                deduped.append(word)
+        else:
+            deduped.append(word)
+            prev = word
+            count = 0
+    return ' '.join(deduped)
+
+def merge_chunk_results(chunk_results: List[Optional[Dict[str, Any]]], chunks: List[Tuple[float, float]]) -> Dict[str, Any]:
     """Merge results from multiple audio chunks into a single result."""
     if not chunk_results:
         return {"text": "", "segments": [], "language": "en"}
@@ -83,44 +125,42 @@ def merge_chunk_results(chunk_results: List[Optional[Dict[str, Any]]]) -> Dict[s
         "language": valid_results[0].get("language", "en")
     }
     
-    text_parts = []
     all_segments = []
     
     for i, chunk_result in enumerate(valid_results):
-        chunk_text = chunk_result.get("text", "").strip()
-    
-    # Filter out None results
-    valid_results = [r for r in chunk_results if r is not None]
-    if not valid_results:
-        return {"text": "", "segments": [], "language": "en"}
-    
-    merged_result = {
-        "text": "",
-        "segments": [],
-        "language": valid_results[0].get("language", "en")
-    }
-    
-    text_parts = []
-    all_segments = []
-    
-    for i, chunk_result in enumerate(valid_results):
-        chunk_text = chunk_result.get("text", "").strip()
-        if chunk_text:
-            text_parts.append(chunk_text)
+        # Use the actual chunk start time as offset
+        chunk_offset = chunks[i][0]
         
-        # Process segments if available
+        # Process segments
         segments = chunk_result.get("segments", [])
         for segment in segments:
             adjusted_segment = segment.copy()
-            # Adjust segment timestamps based on chunk position
-            chunk_offset = i * 25.0  # Approximate offset (chunk_length - overlap)
             if "start" in adjusted_segment:
                 adjusted_segment["start"] += chunk_offset
             if "end" in adjusted_segment:
                 adjusted_segment["end"] += chunk_offset
             all_segments.append(adjusted_segment)
     
-    merged_result["text"] = " ".join(text_parts)
+    # Merge overlapping segments
+    all_segments = merge_overlapping_segments(all_segments)
+    
+    # Reconstruct text from merged segments
+    text_parts = [seg.get("text", "").strip() for seg in all_segments if seg.get("text")]
+    
+    # Basic deduplication on parts
+    deduped_text = []
+    prev_part = ""
+    for part in text_parts:
+        if part != prev_part:
+            deduped_text.append(part)
+            prev_part = part
+    
+    merged_text = " ".join(deduped_text)
+    
+    # Post-process to remove repetitions
+    merged_text = remove_repetitions(merged_text)
+    
+    merged_result["text"] = merged_text
     merged_result["segments"] = all_segments
     
     return merged_result
@@ -348,7 +388,10 @@ def transcribe_audio_mlx_chunked(model_name: str, audio_file: str, chunks: List[
                     'audio': chunk_file,
                     'path_or_hf_repo': mlx_model_name,
                     'task': task,  # 'translate' will convert to English
-                    'verbose': verbose
+                    'verbose': verbose,
+                    'temperature': 0.0,
+                    'condition_on_previous_text': False,
+                    'initial_prompt': "Transcribe the orthopedic lecture on 3D printing, ignoring echoes, technical issues, and repetitions."
                 }
                 
                 # For MLX-Whisper, don't set language when task is 'translate'
@@ -380,7 +423,7 @@ def transcribe_audio_mlx_chunked(model_name: str, audio_file: str, chunks: List[
             except Exception as e:
                 logger.warning(f"Could not remove temp file {temp_file}: {e}")
         
-        return merge_chunk_results(chunk_results)
+        return merge_chunk_results(chunk_results, chunks)
         
     except Exception as e:
         logger.error(f"MLX chunked transcription failed: {e}")
@@ -400,7 +443,10 @@ def transcribe_audio_mlx(model_name: str, audio_file: str, language: Optional[st
             'audio': audio_file,
             'path_or_hf_repo': mlx_model_name,
             'task': task,
-            'verbose': verbose
+            'verbose': verbose,
+            'temperature': 0.0,
+            'condition_on_previous_text': False,
+            'initial_prompt': "Transcribe the orthopedic lecture on 3D printing, ignoring echoes, technical issues, and repetitions."
         }
         
         # For MLX-Whisper, don't set language when task is 'translate'
@@ -436,7 +482,11 @@ def transcribe_audio_standard(model: Any, audio_file: str, language: Optional[st
             'audio': audio_file,
             'fp16': use_fp16,
             'task': task,
-            'verbose': verbose
+            'verbose': verbose,
+            'temperature': 0.0,
+            'beam_size': 5,
+            'condition_on_previous_text': False,
+            'initial_prompt': "Transcribe the orthopedic lecture on 3D printing, ignoring echoes, technical issues, and repetitions."
         }
         
         # For standard Whisper, don't set language when task is 'translate'
@@ -524,8 +574,8 @@ def main() -> None:
         
         # Chunking options
         enable_chunking: bool = config['DEFAULT'].getboolean('enable_chunking', fallback=True)
-        chunk_length: float = config['DEFAULT'].getfloat('chunk_length', fallback=30.0)
-        overlap_length: float = config['DEFAULT'].getfloat('overlap_length', fallback=5.0)
+        chunk_length: float = config['DEFAULT'].getfloat('chunk_length', fallback=120.0)
+        overlap_length: float = config['DEFAULT'].getfloat('overlap_length', fallback=20.0)
         max_segment_length: int = config['DEFAULT'].getint('max_segment_length', fallback=1000)
         verbose_output: bool = config['DEFAULT'].getboolean('verbose_output', fallback=False)
 
@@ -549,7 +599,7 @@ def main() -> None:
         audio_file: Optional[str] = None
 
         if os.path.isdir(source_dir):
-            # Onlyល Only select mp3 files
+            # Only select mp3 files
             files = [f for f in os.listdir(source_dir)
                      if os.path.isfile(os.path.join(source_dir, f)) and f.lower().endswith('.mp3')]
             if len(files) == 1:
