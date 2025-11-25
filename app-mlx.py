@@ -9,6 +9,7 @@ import torch
 from pathlib import Path
 from typing import Optional, Tuple, Union, List, Dict, Any
 import re
+import platform
 
 # Configure logging
 logging.basicConfig(
@@ -21,6 +22,34 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+def get_downloads_path() -> str:
+    """Get the Downloads folder path based on the current operating system."""
+    system = platform.system().lower()
+    home = Path.home()
+    
+    if system == 'darwin':  # macOS
+        return str(home / 'Downloads')
+    elif system == 'windows':
+        return str(home / 'Downloads')
+    elif system == 'linux':
+        # Try XDG user directories first, fallback to ~/Downloads
+        xdg_download = os.environ.get('XDG_DOWNLOAD_DIR')
+        if xdg_download and os.path.exists(xdg_download):
+            return xdg_download
+        return str(home / 'Downloads')
+    else:
+        # Fallback for unknown systems
+        return str(home / 'Downloads')
+
+def resolve_output_path(output_dir: str) -> str:
+    """Resolve output directory path, handling special cases like ~/Downloads."""
+    if output_dir.strip().lower() in ['~/downloads', '~/Downloads']:
+        return get_downloads_path()
+    elif output_dir.startswith('~'):
+        return str(Path(output_dir).expanduser())
+    else:
+        return output_dir
+
 def load_config(config_path: str = 'config.ini') -> configparser.ConfigParser:
     """Load configuration from an INI file or create default if not exists."""
     config = configparser.ConfigParser()
@@ -28,7 +57,7 @@ def load_config(config_path: str = 'config.ini') -> configparser.ConfigParser:
         'DEFAULT': {
             'audio_file': '',
             'whisper_model': 'large-v3-turbo',
-            'output_dir': 'outputs',
+            'output_dir': '~/Downloads',
             'use_mlx': 'true',
             'force_cpu': 'false',
             'hf_token_file': '.hf_token',
@@ -566,7 +595,7 @@ def main() -> None:
     try:
         config = load_config()
         whisper_model: str = config['DEFAULT']['whisper_model']
-        output_dir: str = config['DEFAULT']['output_dir']
+        output_dir: str = resolve_output_path(config['DEFAULT']['output_dir'])
         use_mlx: bool = config['DEFAULT'].getboolean('use_mlx', fallback=True)
         force_cpu: bool = config['DEFAULT'].getboolean('force_cpu', fallback=False)
         specified_language: str = config['DEFAULT'].get('language', '').strip()
