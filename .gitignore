@@ -5,6 +5,6 @@
 *.m4a
 *.MP3
 .hf_token
-.DS_Store
+*DS_Store
 ./venv/*.*
 ./vscode/*.*
