@@ -595,7 +595,9 @@ def main() -> None:
     try:
         config = load_config()
         whisper_model: str = config['DEFAULT']['whisper_model']
-        output_dir: str = resolve_output_path(config['DEFAULT']['output_dir'])
+        # Always save outputs to the current user's Downloads folder
+        output_dir: str = str(Path.home() / "Downloads")
+        logger.info(f"Output directory set to: {output_dir}")
         use_mlx: bool = config['DEFAULT'].getboolean('use_mlx', fallback=True)
         force_cpu: bool = config['DEFAULT'].getboolean('force_cpu', fallback=False)
         specified_language: str = config['DEFAULT'].get('language', '').strip()
