@@ -9912,3 +9912,37 @@ Invalid username or password.
 2025-12-11 22:24:54,636 - INFO - Transcription Duration: 0 hours, 1 minutes
 2025-12-11 22:24:54,636 - INFO - Speed ratio: 52.71x real-time
 2025-12-11 22:24:54,638 - INFO - Transcription written to: /Users/hochiyau/Downloads/5820-13_large-v3-turbo_mlx_en_202512112222.txt
+2025-12-11 22:41:07,343 - INFO - Output directory set to: /Users/hochiyau/Downloads
+2025-12-11 22:41:07,343 - INFO - Using HF token from file: .hf_token
+2025-12-11 22:41:07,659 - INFO - Successfully authenticated with Hugging Face Hub
+2025-12-11 22:41:07,660 - INFO - Task: transcribe (maintains original language or specified language: en)
+2025-12-11 22:41:07,660 - INFO - Using MP3 audio file from 'source': source/5820-13.MP3
+2025-12-11 22:41:07,660 - INFO - Audio Duration: 1 hours, 43 minutes
+2025-12-11 22:41:07,660 - INFO - Processing entire audio file at once
+2025-12-11 22:41:08,124 - INFO - Using MLX-Whisper backend with model: large-v2
+2025-12-11 22:41:08,124 - INFO - Start Time: 2025-12-11 22:41:08
+2025-12-11 22:41:08,124 - INFO - Using MLX-Whisper for transcription with model: large-v2
+2025-12-11 22:41:08,124 - INFO - Using MLX model: mlx-community/whisper-large-v2-mlx
+2025-12-11 22:41:08,124 - INFO - Task: transcribe, Target language: en
+2025-12-11 22:41:08,124 - INFO - Using specified language: en
+2025-12-11 22:46:31,125 - INFO - Detected/Final language: en
+2025-12-11 22:46:31,140 - INFO - Transcription Duration: 0 hours, 5 minutes
+2025-12-11 22:46:31,140 - INFO - Speed ratio: 19.31x real-time
+2025-12-11 22:46:31,141 - INFO - Transcription written to: /Users/hochiyau/Downloads/5820-13_large-v2_mlx_en_202512112241.txt
+2025-12-11 23:05:15,539 - INFO - Output directory set to: /Users/hochiyau/Downloads
+2025-12-11 23:05:15,539 - INFO - Using HF token from file: .hf_token
+2025-12-11 23:05:16,397 - INFO - Successfully authenticated with Hugging Face Hub
+2025-12-11 23:05:16,398 - INFO - Found audio file: source/5820-13.MP3
+2025-12-11 23:05:16,402 - INFO - Audio Duration: 1h 43m
+2025-12-11 23:05:17,738 - INFO - Using MLX model: mlx-community/whisper-large-v2-mlx
+2025-12-11 23:05:17,739 - INFO - Using specified language: en
+2025-12-11 23:05:39,474 - INFO - Interrupted by user
+2025-12-11 23:05:40,163 - INFO - Output directory set to: /Users/hochiyau/Downloads
+2025-12-11 23:05:40,163 - INFO - Using HF token from file: .hf_token
+2025-12-11 23:05:40,514 - INFO - Successfully authenticated with Hugging Face Hub
+2025-12-11 23:05:40,514 - INFO - Found audio file: source/5820-13.MP3
+2025-12-11 23:05:40,515 - INFO - Audio Duration: 1h 43m
+2025-12-11 23:05:40,998 - INFO - Using MLX model: mlx-community/whisper-large-v2-mlx
+2025-12-11 23:05:40,998 - INFO - Using specified language: en
+2025-12-11 23:09:00,631 - INFO - Finished in 199.6s (31.24x speed)
+2025-12-11 23:09:00,632 - INFO - Transcription written to: /Users/hochiyau/Downloads/5820-13_large-v2_mlx_en_202512112305.txt
