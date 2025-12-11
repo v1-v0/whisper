@@ -3,6 +3,9 @@ import glob
 import mlx_whisper
 from pypdf import PdfReader
 
+# Ensure you have the 'source' folder created in the same directory as this script
+# and place your PDF file inside it.
+
 def get_prompt_from_source_folder(folder_path="./source"):
     """
     Scans the specified folder for PDFs, reads the first one found,
@@ -41,7 +44,6 @@ def get_prompt_from_source_folder(folder_path="./source"):
         text_content = text_content.replace('\n', ' ').replace('  ', ' ')
         
         # Truncate to ~800 chars to fit Whisper's prompt token limit
-        # This ensures we pass the most relevant keywords without crashing
         return f"Context: {text_content[:800]}"
         
     except Exception as e:
@@ -52,7 +54,7 @@ def get_prompt_from_source_folder(folder_path="./source"):
 
 # Define where your files are located
 source_directory = "./source" 
-audio_file_path = "your_audio_file.mp3" # Update this to your audio path
+audio_file_path = "your_audio_file.mp3" # Update this to your specific audio file name
 
 # Get the dynamic prompt from the first PDF in the source folder
 dynamic_prompt = get_prompt_from_source_folder(source_directory)
@@ -60,12 +62,16 @@ dynamic_prompt = get_prompt_from_source_folder(source_directory)
 print(f"\nGenerated Prompt: {dynamic_prompt}\n")
 
 # Run Transcription
-result = mlx_whisper.transcribe(
-    audio_file_path,
-    path_or_hf_repo="mlx-community/whisper-large-v3-mlx",
-    initial_prompt=dynamic_prompt,
-    verbose=True
-)
+# Note: Ensure you have an audio file at 'audio_file_path' before running
+if os.path.exists(audio_file_path):
+    result = mlx_whisper.transcribe(
+        audio_file_path,
+        path_or_hf_repo="mlx-community/whisper-large-v3-mlx",
+        initial_prompt=dynamic_prompt,
+        verbose=True
+    )
 
-print("-" * 30)
-print(result["text"])
+    print("-" * 30)
+    print(result["text"])
+else:
+    print(f"Error: Audio file not found at {audio_file_path}")
