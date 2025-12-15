@@ -476,34 +476,47 @@ def transcribe_audio_standard(
     verbose: bool = False,
     initial_prompt: str = ""
 ) -> Optional[Dict[str, Any]]:
-    """Transcribe audio file using standard Whisper model."""
+    """Transcribe audio file using Faster-Whisper model."""
     try:
-        logger.info(f"Using standard Whisper for transcription")
+        logger.info(f"Using Faster-Whisper for transcription")
         
-        transcribe_params: Dict[str, Any] = {
-            'audio': audio_file,
-            'fp16': use_fp16,
-            'task': task,
-            'verbose': verbose,
-            'temperature': 0.0,
+        options: Dict[str, Any] = {
             'beam_size': 5,
-            'condition_on_previous_text': False,
-            'initial_prompt': initial_prompt
+            'vad_filter': True
         }
+        if task in ['transcribe', 'translate']:
+            options['task'] = task
+        if initial_prompt:
+            options['initial_prompt'] = initial_prompt
+        if language:
+            options['language'] = 'zh-TW' if language in ['zh', 'zh-CN', 'zh-TW'] else language
         
-        effective_language = language
-        if task == 'transcribe':
-            if language == 'zh' or (language is None and model.transcribe(audio_file, task='transcribe').get('language') in ['zh', 'zh-CN', 'zh-TW']):
-                effective_language = 'zh-TW'
-            if effective_language:
-                transcribe_params['language'] = effective_language
+        segments, info = model.transcribe(audio_file, **options)
         
-        result = model.transcribe(**transcribe_params)
+        seg_list: List[Dict[str, Any]] = []
+        text_parts: List[str] = []
+        for seg in segments:
+            seg_list.append({
+                "id": getattr(seg, "id", None),
+                "seek": getattr(seg, "seek", None),
+                "start": float(seg.start) if getattr(seg, "start", None) is not None else None,
+                "end": float(seg.end) if getattr(seg, "end", None) is not None else None,
+                "text": getattr(seg, "text", "") or "",
+                "tokens": getattr(seg, "tokens", None),
+                "temperature": getattr(seg, "temperature", None),
+                "avg_logprob": getattr(seg, "avg_logprob", None),
+                "compression_ratio": getattr(seg, "compression_ratio", None),
+                "no_speech_prob": getattr(seg, "no_speech_prob", None),
+            })
+            if getattr(seg, "text", None):
+                text_parts.append(seg.text.strip())
         
-        if result and 'text' in result:
-            result['text'] = post_process_text(result['text'])
+        combined_text = post_process_text(" ".join(text_parts))
+        detected_language = getattr(info, "language", None) or language or "en"
+        if detected_language in ['zh', 'zh-CN', 'zh-TW']:
+            detected_language = 'zh-TW'
         
-        return result
+        return {"text": combined_text, "segments": seg_list, "language": detected_language}
         
     except Exception as e:
         logger.error(f"Standard transcription failed: {e}")
@@ -627,13 +640,14 @@ def main() -> None:
             
             device = get_optimal_device(force_cpu)
             try:
-                import whisper
-                model = whisper.load_model(whisper_model)
-                if device != "cpu":
-                    model = model.to(device)
+                
+                from faster_whisper import WhisperModel
+                device_fw = "metal" if device == "mps" else device
+                compute_type = "float16" if device in ["cuda", "mps"] and not force_cpu else "int8"
+                model = WhisperModel(whisper_model, device=device_fw, compute_type=compute_type)
                 backend_name = f"standard-{device}"
             except Exception as e:
-                logger.error(f"Error loading Whisper model: {e}")
+                logger.error(f"Error loading Faster-Whisper model: {e}")
                 sys.exit(1)
 
         # Start Transcription

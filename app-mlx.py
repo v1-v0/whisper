@@ -686,8 +686,8 @@ def main() -> None:
             logger.info(f"Using device: {device}")
             
             try:
-                import whisper
-                model = whisper.load_model(whisper_model)
+                import whisper  # type: ignore[import-not-found]
+                model = whisper.load_model(whisper_model)  # type: ignore[attr-defined]
                 if device != "cpu":
                     model = model.to(device)
                 backend_name = f"standard-{device}"

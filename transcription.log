@@ -9946,3 +9946,33 @@ Invalid username or password.
 2025-12-11 23:05:40,998 - INFO - Using specified language: en
 2025-12-11 23:09:00,631 - INFO - Finished in 199.6s (31.24x speed)
 2025-12-11 23:09:00,632 - INFO - Transcription written to: /Users/hochiyau/Downloads/5820-13_large-v2_mlx_en_202512112305.txt
+2025-12-16 00:32:20,179 - INFO - Output directory set to: /Users/hochiyau/Downloads
+2025-12-16 00:32:20,180 - INFO - Using HF token from file: .hf_token
+2025-12-16 00:32:20,541 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2025-12-16 00:32:20,545 - INFO - Successfully authenticated with Hugging Face Hub
+2025-12-16 00:32:20,545 - INFO - Found audio file: source/20251022-5820.MP3
+2025-12-16 00:32:20,545 - INFO - Audio Duration: 1h 44m
+2025-12-16 00:32:21,612 - INFO - Using MLX model: mlx-community/whisper-large-v2-mlx
+2025-12-16 00:32:21,612 - INFO - Using specified language: en
+2025-12-16 00:32:21,908 - INFO - HTTP Request: GET https://huggingface.co/api/models/mlx-community/whisper-large-v2-mlx/revision/main "HTTP/1.1 200 OK"
+2025-12-16 00:35:45,270 - INFO - Finished in 203.7s (30.71x speed)
+2025-12-16 00:35:45,271 - INFO - Transcription written to: /Users/hochiyau/Downloads/20251022-5820_large-v2_mlx_en_202512160032.txt
+2025-12-16 01:07:27,917 - INFO - Output directory set to: /Users/hochiyau/Downloads
+2025-12-16 01:07:27,918 - INFO - Using HF token from file: .hf_token
+2025-12-16 01:07:28,243 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2025-12-16 01:07:28,247 - INFO - Successfully authenticated with Hugging Face Hub
+2025-12-16 01:07:28,247 - INFO - Task: transcribe (maintains original language or specified language: en)
+2025-12-16 01:07:28,247 - INFO - Using MP3 audio file from 'source': source/20251008-5820-SUR_SIM.MP3
+2025-12-16 01:07:28,248 - INFO - Audio Duration: 1 hours, 49 minutes
+2025-12-16 01:07:28,249 - INFO - Processing entire audio file at once
+2025-12-16 01:07:28,618 - INFO - Using MLX-Whisper backend with model: large-v2
+2025-12-16 01:07:28,618 - INFO - Start Time: 2025-12-16 01:07:28 Emmy
+2025-12-16 01:07:28,618 - INFO - Using MLX-Whisper for transcription with model: large-v2
+2025-12-16 01:07:28,618 - INFO - Using MLX model: mlx-community/whisper-large-v2-mlx
+2025-12-16 01:07:28,618 - INFO - Task: transcribe, Target language: en
+2025-12-16 01:07:28,618 - INFO - Using specified language: en
+2025-12-16 01:07:28,855 - INFO - HTTP Request: GET https://huggingface.co/api/models/mlx-community/whisper-large-v2-mlx/revision/main "HTTP/1.1 200 OK"
+2025-12-16 01:11:25,422 - INFO - Detected/Final language: en
+2025-12-16 01:11:25,422 - INFO - Transcription Duration: 0 hours, 3 minutes
+2025-12-16 01:11:25,422 - INFO - Speed ratio: 27.87x real-time
+2025-12-16 01:11:25,424 - INFO - Transcription written to: /Users/hochiyau/Downloads/20251008-5820-SUR_SIM_large-v2_mlx_en_202512160107.txt
