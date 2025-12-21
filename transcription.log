@@ -9976,3 +9976,22 @@ Invalid username or password.
 2025-12-16 01:11:25,422 - INFO - Transcription Duration: 0 hours, 3 minutes
 2025-12-16 01:11:25,422 - INFO - Speed ratio: 27.87x real-time
 2025-12-16 01:11:25,424 - INFO - Transcription written to: /Users/hochiyau/Downloads/20251008-5820-SUR_SIM_large-v2_mlx_en_202512160107.txt
+2025-12-21 23:38:32,280 - INFO - Output directory set to: /Users/hochiyau/Downloads
+2025-12-21 23:38:32,280 - INFO - Using HF token from file: .hf_token
+2025-12-21 23:38:32,713 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
+2025-12-21 23:38:32,718 - INFO - Successfully authenticated with Hugging Face Hub
+2025-12-21 23:38:32,718 - INFO - Task: transcribe (maintains original language or specified language: en)
+2025-12-21 23:38:32,718 - INFO - Using MP3 audio file from 'source': source/The 3D Printing process of the Steering PAD 900-F.mp3
+2025-12-21 23:38:32,720 - INFO - Audio Duration: 0 hours, 8 minutes
+2025-12-21 23:38:32,720 - INFO - Processing entire audio file at once
+2025-12-21 23:38:35,337 - INFO - Using MLX-Whisper backend with model: large-v2
+2025-12-21 23:38:35,337 - INFO - Start Time: 2025-12-21 23:38:35 Emmy
+2025-12-21 23:38:35,337 - INFO - Using MLX-Whisper for transcription with model: large-v2
+2025-12-21 23:38:35,337 - INFO - Using MLX model: mlx-community/whisper-large-v2-mlx
+2025-12-21 23:38:35,337 - INFO - Task: transcribe, Target language: en
+2025-12-21 23:38:35,337 - INFO - Using specified language: en
+2025-12-21 23:38:35,568 - INFO - HTTP Request: GET https://huggingface.co/api/models/mlx-community/whisper-large-v2-mlx/revision/main "HTTP/1.1 200 OK"
+2025-12-21 23:38:55,589 - INFO - Detected/Final language: en
+2025-12-21 23:38:55,589 - INFO - Transcription Duration: 0 hours, 0 minutes
+2025-12-21 23:38:55,589 - INFO - Speed ratio: 24.56x real-time
+2025-12-21 23:38:55,589 - INFO - Transcription written to: /Users/hochiyau/Downloads/The 3D Printing process of the Steering PAD 900-F_large-v2_mlx_en_202512212338.txt
