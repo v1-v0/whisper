@@ -9976,6 +9976,7 @@ Invalid username or password.
 2025-12-16 01:11:25,422 - INFO - Transcription Duration: 0 hours, 3 minutes
 2025-12-16 01:11:25,422 - INFO - Speed ratio: 27.87x real-time
 2025-12-16 01:11:25,424 - INFO - Transcription written to: /Users/hochiyau/Downloads/20251008-5820-SUR_SIM_large-v2_mlx_en_202512160107.txt
+<<<<<<< HEAD
 2025-12-21 23:38:32,280 - INFO - Output directory set to: /Users/hochiyau/Downloads
 2025-12-21 23:38:32,280 - INFO - Using HF token from file: .hf_token
 2025-12-21 23:38:32,713 - INFO - HTTP Request: GET https://huggingface.co/api/whoami-v2 "HTTP/1.1 200 OK"
@@ -9995,3 +9996,56 @@ Invalid username or password.
 2025-12-21 23:38:55,589 - INFO - Transcription Duration: 0 hours, 0 minutes
 2025-12-21 23:38:55,589 - INFO - Speed ratio: 24.56x real-time
 2025-12-21 23:38:55,589 - INFO - Transcription written to: /Users/hochiyau/Downloads/The 3D Printing process of the Steering PAD 900-F_large-v2_mlx_en_202512212338.txt
+=======
+2025-12-16 11:55:39,447 - INFO - Output directory set to: /Users/yau/Downloads
+2025-12-16 11:55:39,448 - INFO - Using HF token from file: .hf_token
+2025-12-16 11:55:40,021 - INFO - Successfully authenticated with Hugging Face Hub
+2025-12-16 11:55:40,021 - INFO - Task: transcribe (maintains original language or specified language: en)
+2025-12-16 11:55:40,021 - WARNING - Multiple MP3 files found in 'source': ['20250924-5820-Neurosurgery.MP3', '5820-L1.MP3']. Using the first: 20250924-5820-Neurosurgery.MP3
+2025-12-16 11:55:40,022 - INFO - Audio Duration: 2 hours, 3 minutes
+2025-12-16 11:55:40,022 - INFO - Processing entire audio file at once
+2025-12-16 11:55:42,587 - INFO - Using MLX-Whisper backend with model: large-v2
+2025-12-16 11:55:42,587 - INFO - Start Time: 2025-12-16 11:55:42 Emmy
+2025-12-16 11:55:42,587 - INFO - Using MLX-Whisper for transcription with model: large-v2
+2025-12-16 11:55:42,587 - INFO - Using MLX model: mlx-community/whisper-large-v2-mlx
+2025-12-16 11:55:42,587 - INFO - Task: transcribe, Target language: en
+2025-12-16 11:55:42,587 - INFO - Using specified language: en
+2025-12-16 11:59:29,623 - INFO - Transcription interrupted by user
+2025-12-16 11:59:32,257 - INFO - Output directory set to: /Users/yau/Downloads
+2025-12-16 11:59:32,258 - INFO - Using HF token from file: .hf_token
+2025-12-16 11:59:32,561 - INFO - Successfully authenticated with Hugging Face Hub
+2025-12-16 11:59:32,561 - INFO - Task: transcribe (maintains original language or specified language: en)
+2025-12-16 11:59:32,561 - WARNING - Multiple MP3 files found in 'source': ['20250924-5820-Neurosurgery.MP3', '5820-L1.MP3']. Using the first: 20250924-5820-Neurosurgery.MP3
+2025-12-16 11:59:32,562 - INFO - Audio Duration: 2 hours, 3 minutes
+2025-12-16 11:59:32,562 - INFO - Processing entire audio file at once
+2025-12-16 11:59:33,015 - INFO - Using MLX-Whisper backend with model: large-v2
+2025-12-16 11:59:33,015 - INFO - Start Time: 2025-12-16 11:59:33 Emmy
+2025-12-16 11:59:33,015 - INFO - Using MLX-Whisper for transcription with model: large-v2
+2025-12-16 11:59:33,015 - INFO - Using MLX model: mlx-community/whisper-large-v2-mlx
+2025-12-16 11:59:33,015 - INFO - Task: transcribe, Target language: en
+2025-12-16 11:59:33,015 - INFO - Using specified language: en
+2025-12-16 12:04:15,156 - INFO - Detected/Final language: en
+2025-12-16 12:04:15,156 - INFO - Transcription Duration: 0 hours, 4 minutes
+2025-12-16 12:04:15,156 - INFO - Speed ratio: 26.21x real-time
+2025-12-16 12:04:15,157 - INFO - Transcription written to: /Users/yau/Downloads/20250924-5820-Neurosurgery_large-v2_mlx_en_202512161159.txt
+2025-12-16 12:21:38,953 - INFO - Output directory set to: /Users/yau/Downloads
+2025-12-16 12:21:38,953 - INFO - Using HF token from file: .hf_token
+2025-12-16 12:25:08,389 - INFO - Transcription interrupted by user
+2025-12-16 12:25:11,096 - INFO - Output directory set to: /Users/yau/Downloads
+2025-12-16 12:25:11,096 - INFO - Using HF token from file: .hf_token
+2025-12-16 12:25:11,528 - INFO - Successfully authenticated with Hugging Face Hub
+2025-12-16 12:25:11,528 - INFO - Task: transcribe (maintains original language or specified language: en)
+2025-12-16 12:25:11,528 - INFO - Using MP3 audio file from 'source': source/5820-L1.MP3
+2025-12-16 12:25:11,530 - INFO - Audio Duration: 1 hours, 59 minutes
+2025-12-16 12:25:11,530 - INFO - Processing entire audio file at once
+2025-12-16 12:25:12,069 - INFO - Using MLX-Whisper backend with model: large-v2
+2025-12-16 12:25:12,069 - INFO - Start Time: 2025-12-16 12:25:12 Emmy
+2025-12-16 12:25:12,069 - INFO - Using MLX-Whisper for transcription with model: large-v2
+2025-12-16 12:25:12,069 - INFO - Using MLX model: mlx-community/whisper-large-v2-mlx
+2025-12-16 12:25:12,069 - INFO - Task: transcribe, Target language: en
+2025-12-16 12:25:12,069 - INFO - Using specified language: en
+2025-12-16 12:29:18,541 - INFO - Detected/Final language: en
+2025-12-16 12:29:18,542 - INFO - Transcription Duration: 0 hours, 4 minutes
+2025-12-16 12:29:18,542 - INFO - Speed ratio: 29.01x real-time
+2025-12-16 12:29:18,543 - INFO - Transcription written to: /Users/yau/Downloads/5820-L1_large-v2_mlx_en_202512161225.txt
+>>>>>>> 3a8e37c4893cf8da2c8af09e5ef42d28732eaf7a
