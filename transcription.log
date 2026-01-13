@@ -10027,3 +10027,37 @@ Invalid username or password.
 2025-12-16 12:29:18,542 - INFO - Transcription Duration: 0 hours, 4 minutes
 2025-12-16 12:29:18,542 - INFO - Speed ratio: 29.01x real-time
 2025-12-16 12:29:18,543 - INFO - Transcription written to: /Users/yau/Downloads/5820-L1_large-v2_mlx_en_202512161225.txt
+2026-01-13 10:06:11,693 - INFO - Output directory set to: /Users/yau/Downloads
+2026-01-13 10:06:11,694 - INFO - Using HF token from file: .hf_token
+2026-01-13 10:06:12,546 - INFO - Successfully authenticated with Hugging Face Hub
+2026-01-13 10:06:12,546 - INFO - Task: transcribe (maintains original language or specified language: en)
+2026-01-13 10:06:12,546 - INFO - Using MP3 audio file from 'source': source/5530 3-3 term paper.mp3
+2026-01-13 10:06:12,547 - INFO - Audio Duration: 0 hours, 12 minutes
+2026-01-13 10:06:12,547 - INFO - Processing entire audio file at once
+2026-01-13 10:06:15,121 - INFO - Using MLX-Whisper backend with model: large-v2
+2026-01-13 10:06:15,121 - INFO - Start Time: 2026-01-13 10:06:15 Emmy
+2026-01-13 10:06:15,121 - INFO - Using MLX-Whisper for transcription with model: large-v2
+2026-01-13 10:06:15,121 - INFO - Using MLX model: mlx-community/whisper-large-v2-mlx
+2026-01-13 10:06:15,121 - INFO - Task: transcribe, Target language: en
+2026-01-13 10:06:15,121 - INFO - Using specified language: en
+2026-01-13 10:06:42,916 - INFO - Detected/Final language: en
+2026-01-13 10:06:42,916 - INFO - Transcription Duration: 0 hours, 0 minutes
+2026-01-13 10:06:42,916 - INFO - Speed ratio: 26.97x real-time
+2026-01-13 10:06:42,917 - INFO - Transcription written to: /Users/yau/Downloads/5530 3-3 term paper_large-v2_mlx_en_202601131006.txt
+2026-01-13 11:46:24,510 - INFO - Output directory set to: /Users/yau/Downloads
+2026-01-13 11:46:24,510 - INFO - Using HF token from file: .hf_token
+2026-01-13 11:46:25,163 - INFO - Successfully authenticated with Hugging Face Hub
+2026-01-13 11:46:25,163 - INFO - Task: transcribe (maintains original language or specified language: en)
+2026-01-13 11:46:25,164 - INFO - Using MP3 audio file from 'source': source/5840 L1 OCT lab.mp3
+2026-01-13 11:46:25,164 - INFO - Audio Duration: 0 hours, 15 minutes
+2026-01-13 11:46:25,164 - INFO - Processing entire audio file at once
+2026-01-13 11:46:25,594 - INFO - Using MLX-Whisper backend with model: large-v2
+2026-01-13 11:46:25,594 - INFO - Start Time: 2026-01-13 11:46:25 Emmy
+2026-01-13 11:46:25,594 - INFO - Using MLX-Whisper for transcription with model: large-v2
+2026-01-13 11:46:25,594 - INFO - Using MLX model: mlx-community/whisper-large-v2-mlx
+2026-01-13 11:46:25,594 - INFO - Task: transcribe, Target language: en
+2026-01-13 11:46:25,594 - INFO - Using specified language: en
+2026-01-13 11:47:01,718 - INFO - Detected/Final language: en
+2026-01-13 11:47:01,718 - INFO - Transcription Duration: 0 hours, 0 minutes
+2026-01-13 11:47:01,718 - INFO - Speed ratio: 25.80x real-time
+2026-01-13 11:47:01,719 - INFO - Transcription written to: /Users/yau/Downloads/5840 L1 OCT lab_large-v2_mlx_en_202601131146.txt
