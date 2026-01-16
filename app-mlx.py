@@ -630,17 +630,18 @@ def main() -> None:
         audio_file: Optional[str] = None
 
         if os.path.isdir(source_dir):
-            # Only select mp3 files
+            # Accept both mp3 and m4a files
             files = [f for f in os.listdir(source_dir)
-                     if os.path.isfile(os.path.join(source_dir, f)) and f.lower().endswith('.mp3')]
+                    if os.path.isfile(os.path.join(source_dir, f)) 
+                    and f.lower().endswith(('.mp3', '.m4a'))]
             if len(files) == 1:
                 audio_file = os.path.join(source_dir, files[0])
-                logger.info(f"Using MP3 audio file from 'source': {audio_file}")
+                logger.info(f"Using audio file from 'source': {audio_file}")
             elif len(files) == 0:
-                logger.error(f"No MP3 files found in '{source_dir}' directory.")
+                logger.error(f"No MP3 or M4A files found in '{source_dir}' directory.")
                 sys.exit(1)
             else:
-                logger.warning(f"Multiple MP3 files found in '{source_dir}': {files}. Using the first: {files[0]}")
+                logger.warning(f"Multiple audio files found in '{source_dir}': {files}. Using the first: {files[0]}")
                 audio_file = os.path.join(source_dir, files[0])
         else:
             logger.error(f"Directory '{source_dir}' does not exist.")
@@ -749,6 +750,7 @@ def main() -> None:
     except Exception as e:
         logger.error(f"Unexpected error in main: {e}")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
