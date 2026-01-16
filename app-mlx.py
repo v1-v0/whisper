@@ -312,14 +312,51 @@ def validate_audio_file(file_path: str) -> bool:
 def get_audio_duration(file_path: str) -> Optional[float]:
     """Get audio duration in seconds."""
     try:
+        # First try with soundfile (works for wav, flac, ogg)
         info = sf.info(file_path)
         return info.frames / float(info.samplerate)
-    except sf.SoundFileError as e:
-        logger.error(f"Error reading audio file '{file_path}': {e}")
-        return None
+    except (sf.SoundFileError, RuntimeError) as e:
+        # If soundfile fails, try with ffprobe for formats like m4a, mp3
+        logger.info(f"Soundfile failed for {file_path}, trying ffprobe...")
+        try:
+            import subprocess
+            import json
+            
+            cmd = [
+                'ffprobe',
+                '-v', 'quiet',
+                '-print_format', 'json',
+                '-show_format',
+                file_path
+            ]
+            
+            result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+            data = json.loads(result.stdout)
+            
+            if 'format' in data and 'duration' in data['format']:
+                duration = float(data['format']['duration'])
+                logger.info(f"Successfully got duration using ffprobe: {duration}s")
+                return duration
+            else:
+                logger.error(f"Could not find duration in ffprobe output")
+                return None
+                
+        except subprocess.CalledProcessError as ffprobe_error:
+            logger.error(f"ffprobe failed: {ffprobe_error}")
+            return None
+        except FileNotFoundError:
+            logger.error("ffprobe not found. Please install ffmpeg: brew install ffmpeg")
+            return None
+        except json.JSONDecodeError as json_error:
+            logger.error(f"Failed to parse ffprobe output: {json_error}")
+            return None
+        except Exception as ffprobe_exception:
+            logger.error(f"Unexpected error with ffprobe: {ffprobe_exception}")
+            return None
     except FileNotFoundError:
         logger.error(f"Audio file not found: {file_path}")
         return None
+
 
 def format_duration(seconds: float) -> Tuple[int, int]:
     """Convert seconds to hours and minutes."""
