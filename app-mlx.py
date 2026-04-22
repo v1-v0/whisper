@@ -157,7 +157,7 @@ def merge_chunk_results(chunk_results: List[Optional[Dict[str, Any]]], chunks: L
     all_segments = []
 
     for original_index, chunk_result in valid_pairs:
-        chunck_offset = chunks[original_index][0]
+        chunk_offset = chunks[original_index][0]
         
         # Process segments
         segments = chunk_result.get("segments", [])
