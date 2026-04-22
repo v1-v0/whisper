@@ -144,21 +144,20 @@ def merge_chunk_results(chunk_results: List[Optional[Dict[str, Any]]], chunks: L
         return {"text": "", "segments": [], "language": "en"}
     
     # Filter out None results
-    valid_results = [r for r in chunk_results if r is not None]
-    if not valid_results:
+    valid_pairs = [(i, r) for i, r in enumerate(chunk_results) if r is not None]
+    if not valid_pairs:
         return {"text": "", "segments": [], "language": "en"}
     
     merged_result = {
         "text": "",
         "segments": [],
-        "language": valid_results[0].get("language", "en")
+        "language": valid_pairs[0][1].get("language", "en")
     }
     
     all_segments = []
-    
-    for i, chunk_result in enumerate(valid_results):
-        # Use the actual chunk start time as offset
-        chunk_offset = chunks[i][0]
+
+    for original_index, chunk_result in valid_pairs:
+        chunck_offset = chunks[original_index][0]
         
         # Process segments
         segments = chunk_result.get("segments", [])
@@ -423,7 +422,15 @@ def load_audio_chunk(audio_file: str, start_time: float, end_time: float) -> Opt
         logger.warning(f"Error creating audio chunk: {e}")
         return None
 
-def transcribe_audio_mlx_chunked(model_name: str, audio_file: str, chunks: List[Tuple[float, float]], language: Optional[str] = None, task: str = 'transcribe', verbose: bool = False) -> Optional[Dict[str, Any]]:
+def transcribe_audio_mlx_chunked(
+        model_name: str,
+        audio_file: str,
+        chunks: List[Tuple[float, float]],
+        language: Optional[str] = None,
+        task: str = 'transcribe',
+        verbose: bool = False,
+        initial_prompt: str =''
+)-> Optional[Dict[str, Any]]:
     """Transcribe audio file using MLX-Whisper with chunking."""
     try:
         import mlx_whisper
@@ -457,15 +464,14 @@ def transcribe_audio_mlx_chunked(model_name: str, audio_file: str, chunks: List[
                     'verbose': verbose,
                     'temperature': 0.0,
                     'condition_on_previous_text': False,
-                    'initial_prompt': "Transcribe the orthopedic lecture on 3D printing, ignoring echoes, technical issues, and repetitions."
+                    'initial_prompt': initial_prompt
                 }
                 
-                # For MLX-Whisper, don't set language when task is 'translate'
-                # Use 'zh-TW' for Chinese transcription if detected or specified
-                effective_language = language
-                if task == 'transcribe':
+
+                if task == 'transcribe' and language:
+                    
                     if language == 'zh' or (language is None and mlx_whisper.transcribe(chunk_file, path_or_hf_repo=mlx_model_name, task='transcribe').get('language') in ['zh', 'zh-CN', 'zh-TW']):
-                        effective_language = 'zh-TW'
+                        effective_language = 'zh'
                     if effective_language:
                         transcribe_params['language'] = effective_language
                 
@@ -512,7 +518,7 @@ def transcribe_audio_mlx(model_name: str, audio_file: str, language: Optional[st
             'verbose': verbose,
             'temperature': 0.0,
             'condition_on_previous_text': False,
-            'initial_prompt': "Transcribe the orthopedic lecture on 3D printing, ignoring echoes, technical issues, and repetitions."
+            'initial_prompt': initial_prompt or "Default fallback prompt"
         }
         
         # For MLX-Whisper, don't set language when task is 'translate'
@@ -520,7 +526,7 @@ def transcribe_audio_mlx(model_name: str, audio_file: str, language: Optional[st
         effective_language = language
         if task == 'transcribe':
             if language == 'zh' or (language is None and mlx_whisper.transcribe(audio_file, path_or_hf_repo=mlx_model_name, task='transcribe').get('language') in ['zh', 'zh-CN', 'zh-TW']):
-                effective_language = 'zh-TW'
+                effective_language = 'zh'
             if effective_language:
                 transcribe_params['language'] = effective_language
                 logger.info(f"Using specified language: {effective_language}")
@@ -560,7 +566,7 @@ def transcribe_audio_standard(model: Any, audio_file: str, language: Optional[st
         effective_language = language
         if task == 'transcribe':
             if language == 'zh' or (language is None and model.transcribe(audio_file, task='transcribe').get('language') in ['zh', 'zh-CN', 'zh-TW']):
-                effective_language = 'zh-TW'
+                effective_language = 'zh'
             if effective_language:
                 transcribe_params['language'] = effective_language
                 logger.info(f"Using specified language: {effective_language}")
@@ -639,6 +645,7 @@ def main() -> None:
         force_cpu: bool = config['DEFAULT'].getboolean('force_cpu', fallback=False)
         specified_language: str = config['DEFAULT'].get('language', '').strip()
         task: str = config['DEFAULT'].get('task', 'transcribe').strip()
+        initial_prompt: str = config['DEFAULT'].get('initial_prompt', '').strip()
         
         # Chunking options
         enable_chunking: bool = config['DEFAULT'].getboolean('enable_chunking', fallback=True)
