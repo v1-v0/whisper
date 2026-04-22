@@ -469,11 +469,10 @@ def transcribe_audio_mlx_chunked(
                 
 
                 if task == 'transcribe' and language:
-                    
-                    if language == 'zh' or (language is None and mlx_whisper.transcribe(chunk_file, path_or_hf_repo=mlx_model_name, task='transcribe').get('language') in ['zh', 'zh-CN', 'zh-TW']):
-                        effective_language = 'zh'
-                    if effective_language:
-                        transcribe_params['language'] = effective_language
+                    transcribe_params['language'] = language
+                    logger.info(f"Using specified language: {language}")
+                elif task == 'translate':
+                    logger.info("Translating to English (language parameter not needed)")
                 
                 chunk_result = mlx_whisper.transcribe(**transcribe_params)
                 chunk_results.append(chunk_result)
@@ -501,7 +500,14 @@ def transcribe_audio_mlx_chunked(
         logger.error(f"MLX chunked transcription failed: {e}")
         return None
 
-def transcribe_audio_mlx(model_name: str, audio_file: str, language: Optional[str] = None, task: str = 'transcribe', verbose: bool = False) -> Optional[Dict[str, Any]]:
+def transcribe_audio_mlx(
+        model_name: str,
+        audio_file: str, \
+        language: Optional[str] = None, 
+        task: str = 'transcribe', 
+        verbose: bool = False,
+        initial_prompt: str = ''
+) -> Optional[Dict[str, Any]]:
     """Transcribe audio file using MLX-Whisper model."""
     try:
         import mlx_whisper
@@ -518,18 +524,15 @@ def transcribe_audio_mlx(model_name: str, audio_file: str, language: Optional[st
             'verbose': verbose,
             'temperature': 0.0,
             'condition_on_previous_text': False,
-            'initial_prompt': initial_prompt or "Default fallback prompt"
+            'initial_prompt': initial_prompt
         }
         
         # For MLX-Whisper, don't set language when task is 'translate'
         # Use 'zh-TW' for Chinese transcription if detected or specified
         effective_language = language
         if task == 'transcribe':
-            if language == 'zh' or (language is None and mlx_whisper.transcribe(audio_file, path_or_hf_repo=mlx_model_name, task='transcribe').get('language') in ['zh', 'zh-CN', 'zh-TW']):
-                effective_language = 'zh'
-            if effective_language:
-                transcribe_params['language'] = effective_language
-                logger.info(f"Using specified language: {effective_language}")
+            transcribe_params['language'] = language
+            logger.info(f"Using specified language: {language}")
         elif task == 'translate':
             logger.info("Translating to English (language parameter not needed)")
         
@@ -544,7 +547,15 @@ def transcribe_audio_mlx(model_name: str, audio_file: str, language: Optional[st
         logger.error(f"MLX transcription failed: {e}")
         return None
 
-def transcribe_audio_standard(model: Any, audio_file: str, language: Optional[str] = None, task: str = 'transcribe', use_fp16: bool = False, verbose: bool = False) -> Optional[Dict[str, Any]]:
+def transcribe_audio_standard(
+        model: Any, 
+        audio_file: str, 
+        language: Optional[str] = None, 
+        task: str = 'transcribe', 
+        use_fp16: bool = False, 
+        verbose: bool = False,
+        initial_prompt: str = ''
+) -> Optional[Dict[str, Any]]:
     """Transcribe audio file using standard Whisper model."""
     try:
         logger.info(f"Using standard Whisper for transcription")
@@ -558,18 +569,15 @@ def transcribe_audio_standard(model: Any, audio_file: str, language: Optional[st
             'temperature': 0.0,
             'beam_size': 5,
             'condition_on_previous_text': False,
-            'initial_prompt': "Transcribe the orthopedic lecture on 3D printing, ignoring echoes, technical issues, and repetitions."
+            'initial_prompt': initial_prompt
         }
         
         # For standard Whisper, don't set language when task is 'translate'
         # Use 'zh-TW' for Chinese transcription if detected or specified
         effective_language = language
-        if task == 'transcribe':
-            if language == 'zh' or (language is None and model.transcribe(audio_file, task='transcribe').get('language') in ['zh', 'zh-CN', 'zh-TW']):
-                effective_language = 'zh'
-            if effective_language:
-                transcribe_params['language'] = effective_language
-                logger.info(f"Using specified language: {effective_language}")
+        if task == 'transcribe' and language:
+            transcribe_params['language'] = language
+            logger.info(f"Using specified language: {language}")
         elif task == 'translate':
             logger.info("Translating to English (language parameter not needed)")
         
@@ -752,13 +760,15 @@ def main() -> None:
                 result = transcribe_audio_mlx_chunked(
                     whisper_model, audio_file, chunks, 
                     language=specified_language if task == 'transcribe' else None, 
-                    task=task, verbose=verbose_output
+                    task=task, verbose=verbose_output,
+                    initial_prompt=initial_prompt
                 )
             else:
                 result = transcribe_audio_mlx(
                     whisper_model, audio_file, 
                     language=specified_language if task == 'transcribe' else None, 
-                    task=task, verbose=verbose_output
+                    task=task, verbose=verbose_output,
+                    initial_prompt=initial_prompt
                 )
         else:
             device = get_optimal_device(force_cpu)
@@ -766,7 +776,8 @@ def main() -> None:
             result = transcribe_audio_standard(
                 model, audio_file, 
                 language=specified_language if task == 'transcribe' else None, 
-                task=task, use_fp16=use_fp16, verbose=verbose_output
+                task=task, use_fp16=use_fp16, verbose=verbose_output,
+                initial_prompt=initial_prompt
             )
 
         if result is None:
