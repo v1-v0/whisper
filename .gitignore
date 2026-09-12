@@ -10,3 +10,4 @@
 sources/
 transcriptions/
 settings.json
+__pycache__/
