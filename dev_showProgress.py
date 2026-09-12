@@ -13,7 +13,7 @@ import whisper
 from whisper.audio import HOP_LENGTH, SAMPLE_RATE
 
 
-model_name = "large-v3"
+model_name = "large-v3-turbo"
 stream_segments = False  # print each recognized segment above the progress bar
 
 FRAME_SECONDS = HOP_LENGTH / SAMPLE_RATE  # 0.01 s of audio per mel frame
