@@ -14,7 +14,7 @@ from whisper.audio import HOP_LENGTH, SAMPLE_RATE
 
 
 model_name = "turbo"
-stream_segments = True  # print each recognized segment above the progress bar
+stream_segments = False  # print each recognized segment above the progress bar
 
 FRAME_SECONDS = HOP_LENGTH / SAMPLE_RATE  # 0.01 s of audio per mel frame
 
