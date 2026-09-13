@@ -1,12 +1,14 @@
 /outputs/*.*
 
 /staging/*.*
+*.mp3
 *.log
 .hf_token
 *DS_Store
 .venv/
 .vscode/
 
+source/
 sources/
 transcriptions/
 settings.json
